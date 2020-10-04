@@ -15,7 +15,6 @@ exports.run = async (client, message, args) => {
 	});
 
 	collector.on("collect", (reaction) => {
-		// console.log(m.content);
 		if (reaction.emoji.name === BEER_ICON) {
 			m.channel.send(`<@${authorId}> you reacted with a thumbs up.`);
 		}
