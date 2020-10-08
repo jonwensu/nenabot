@@ -29,7 +29,7 @@ module.exports = [
 	},
 	{
 		answer: "Saw",
-		question: "🧩🩸 🤡",
+		question: "🧩🩸 🍥👀🍥",
 		alias: ["Jigsaw"],
 	},
 	{
