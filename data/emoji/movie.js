@@ -96,11 +96,11 @@ module.exports = [
 		question: "🐺 🏦 💰",
 		alias: ["Wolf of Wallstreet"],
 	},
-	{
-		answer: "Ant-Man",
-		question: "🐜 👨",
-		alias: ["Antman, Ant Man"],
-	},
+	// {
+	// 	answer: "Ant-Man",
+	// 	question: "🐜 👨",
+	// 	alias: ["Antman", "Ant Man"],
+	// },
 	{
 		answer: "Mad Max",
 		question: "🏜️ 😡 🏎️",
