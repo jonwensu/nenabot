@@ -96,4 +96,34 @@ module.exports = [
 		question: "🐺 🏦 💰",
 		alias: ["Wolf of Wallstreet"],
 	},
+	{
+		answer: "Ant-Man",
+		question: "🐜 👨",
+		alias: ["Antman, Ant Man"],
+	},
+	{
+		answer: "Mad Max",
+		question: "🏜️ 😡 🏎️",
+	},
+	{
+		answer: "Minions",
+		question: "🍌 🥽 🧤",
+	},
+	{
+		answer: "Night at the Museum",
+		question: "🦖 🗿 🔦 🌙",
+	},
+	{
+		answer: "Life of Pi",
+		question: "🐅 ⛵",
+	},
+	{
+		answer: "Monsters Inc.",
+		question: "👁️ 🚪 🧦",
+		alias: ["Monsters Inc", "Monsters Incorporated"],
+	},
+	{
+		answer: "School of Rock",
+		question: "🏫 🎸",
+	},
 ];
