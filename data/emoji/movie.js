@@ -92,15 +92,14 @@ module.exports = [
 		question: "🕰️ 🍊",
 	},
 	{
-		answer: "The Wolf of Wallstreet",
+		answer: "The Wolf of Wall Street",
 		question: "🐺 🏦 💰",
-		alias: ["Wolf of Wallstreet"],
+		alias: ["Wolf of Wall Street"],
 	},
-	// {
-	// 	answer: "Ant-Man",
-	// 	question: "🐜 👨",
-	// 	alias: ["Antman", "Ant Man"],
-	// },
+	{
+		answer: "Tooth Fairy",
+		question: "🦷🧚",
+	},
 	{
 		answer: "Mad Max",
 		question: "🏜️ 😡 🏎️",
@@ -125,5 +124,10 @@ module.exports = [
 	{
 		answer: "School of Rock",
 		question: "🏫 🎸",
+	},
+	{
+		answer: "Four Sisters and a Wedding",
+		question: "👭👭💒👰🤵",
+		alias: ["4 Sisters and a Wedding"],
 	},
 ];
