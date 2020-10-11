@@ -29,5 +29,5 @@ exports.run = (client, message, args) => {
     // message.channel.send(`\`${process.env.BOT_PREFIX}${searched}\` — ${client.commands[searched].help}`)
 }
 
-exports.help = 'Displays more information on a specific command.'
+exports.help = 'BALAKAJAN MAMIII'
 exports.aliases = ['details']
