@@ -227,4 +227,24 @@ module.exports = [
 		answer: "Four Weddings and a Funeral",
 		question: "💒💒💒💒⚰️ ",
 	},
+	{
+		answer: "Puss in Boots",
+		question: "🐱 👢",
+	},
+	{
+		answer: "27 Dresses",
+		question: "2️⃣7️⃣ 👗",
+	},
+	{
+		answer: "The Sisterhood of the Traveling Pants",
+		question: "👭👭👖🌎",
+	},
+	{
+		answer: "Finding Nemo",
+		question: "🔍🐠",
+	},
+	{
+		answer: "Curious Case of Benjamin Button",
+		question: "👴🏻➡️ 👨🏼➡️ 👦🏼 ➡️ 👶",
+	},
 ];
