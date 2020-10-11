@@ -1,6 +1,5 @@
 exports.run = (client, message, args) => {
-	const spiel = `OMG MAMIII
-BAKIT KA`;
+	const spiel = `MAMIII MAY CHIKA AKO`;
 
 	message.channel.send(spiel);
 };
