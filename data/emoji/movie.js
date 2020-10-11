@@ -205,4 +205,26 @@ module.exports = [
 		answer: "Paranormal Activity",
 		question: "👫 📹 👻",
 	},
+	{
+		answer: "The Kite Runner",
+		question: "🪁 🏃‍♂️",
+		alias: ['Kite Runner']
+	},
+	{
+		answer: "Babe",
+		question: "🐖 🐽",
+	},
+	{
+		answer: "My Super Ex-Girlfriend",
+		question: "🦸‍♀️❌👩‍❤️‍👨",
+		alias: ['My Super Ex Girlfriend']
+	},
+	{
+		answer: "Before Sunrise",
+		question: "🌅 👧 👦 🇦🇹",
+	},
+	{
+		answer: "Four Weddings and a Funeral",
+		question: "💒💒💒💒⚰️ ",
+	},
 ];
