@@ -67,10 +67,6 @@ module.exports = [
 		alias: ["Shining"],
 	},
 	{
-		answer: "Die Hard",
-		question: "⚰️ 🪨",
-	},
-	{
 		answer: "La La Land",
 		question: "💃 🕺 🌃",
 	},
@@ -80,7 +76,7 @@ module.exports = [
 	},
 	{
 		answer: "The King's Speech",
-		question: "👑 🗩",
+		question: "👑 💬",
 		alias: ["King's Speech"],
 	},
 	{
@@ -129,5 +125,126 @@ module.exports = [
 		answer: "Four Sisters and a Wedding",
 		question: "👭👭💒👰🤵",
 		alias: ["4 Sisters and a Wedding"],
+	},
+	{
+		answer: "Ted",
+		question: "🐻 🚬 🍺",
+	},
+	{
+		answer: "Devil Wears Prada",
+		question: "😈 👗 👠 👜",
+	},
+	{
+		answer: "Matrix",
+		question: "🖥️ 💊 😎",
+	},
+	{
+		answer: "Dumbo",
+		question: "👂 🐘 👂",
+	},
+	{
+		answer: "The Hangover",
+		question: "🎰 🍺🍺🍺🍺 😵",
+		alias: ['Hangover']
+	},
+	{
+		answer: "Slumdog Millionaire",
+		question: "👳 📺 💰💰💰💰",
+	},
+	{
+		answer: "Back to the Future",
+		question: "👦 👴 🚗 ⌚",
+	},
+	{
+		answer: "Pearl Harbor",
+		question: "🇯🇵 ✈️ 💥 🇺🇸",
+	},
+	{
+		answer: "Final Destination",
+		question: "🎢 🚅 ✈️ 💀",
+	},
+	{
+		answer: "Jungle Book",
+		question: "🌲 👦 🐻 🐍",
+	},
+	{
+		answer: "Kung Fu Panda",
+		question: "👊 🐼 🐯 🐵 🦩 🐍",
+	},
+	{
+		answer: "Happy Feet",
+		question: "😊 🐧 🦶",
+	},
+	{
+		answer: "The Lord of the Rings",
+		question: "👦 🧙‍♂️ 💍 🌋",
+		alias: ['Lord of the Rings']
+	},
+	{
+		answer: "ET",
+		question: "👽 👦 🚲 🌙",
+		alias: ['E. T.', 'E.T.']
+	},
+	{
+		answer: "Beauty and the Beast",
+		question: "👩 ❤️ 🐗 ➡️ 👨 🥀",
+	},
+	{
+		answer: "Men in Black",
+		question: "🤵 🤵 🔫 👽",
+	},
+	{
+		answer: "Lady and the Tramp",
+		question: "🐕 🍝 🐩 💏",
+	},
+	{
+		answer: "The Hills have Eyes",
+		question: "⛰️ ⛰️ 👀",
+	},
+	{
+		answer: "Paranormal Activity",
+		question: "👫 📹 👻",
+	},
+	{
+		answer: "The Kite Runner",
+		question: "🪁 🏃‍♂️",
+		alias: ['Kite Runner']
+	},
+	{
+		answer: "Babe",
+		question: "🐖 🐽",
+	},
+	{
+		answer: "My Super Ex-Girlfriend",
+		question: "🦸‍♀️❌👩‍❤️‍👨",
+		alias: ['My Super Ex Girlfriend']
+	},
+	{
+		answer: "Before Sunrise",
+		question: "🌅 👧 👦 🇦🇹",
+	},
+	{
+		answer: "Four Weddings and a Funeral",
+		question: "💒💒💒💒⚰️ ",
+	},
+	{
+		answer: "Puss in Boots",
+		question: "🐱 👢",
+	},
+	{
+		answer: "27 Dresses",
+		question: "2️⃣7️⃣ 👗",
+	},
+	{
+		answer: "The Sisterhood of the Traveling Pants",
+		question: "👭👭👖🌎",
+	},
+	{
+		answer: "Finding Nemo",
+		question: "🔍🐠",
+	},
+	{
+		answer: "Curious Case of Benjamin Button",
+		question: "👴🏻➡️ 👨🏼➡️ 👦🏼 ➡️ 👶",
 	},
 ];
