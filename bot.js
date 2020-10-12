@@ -2,6 +2,8 @@ require("dotenv").config();
 const Discord = require("discord.js");
 const fs = require("fs");
 
+const hiddenCommands = ["emoji", "inom", "paninda", "listemoji"];
+
 // Create a Discord.Client() instance.
 const client = new Discord.Client();
 
@@ -11,7 +13,11 @@ fs.readdir("./commands", (err, files) => {
 	try {
 		files.forEach((file) => {
 			const prop = require(`./commands/${file}`);
-			client.commands[file.split(".")[0]] = prop;
+			const name = file.split(".")[0];
+
+			const hidden = hiddenCommands.includes(name);
+
+			client.commands[name] = { ...prop, hidden };
 		});
 	} catch (err) {
 		console.log(err);
