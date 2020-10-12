@@ -1,5 +1,7 @@
 exports.run = (client, message, args) => {
-	const spiel = "WELCOME MGA KAPOTCHIII!!! SANA DI KAYO MAGING INACTIVE!!!";
+	const potchi =
+		client.emojis.cache.find((emoji) => emoji.name === "potchi") || "";
+	const spiel = `WELCOME MGA KAPOTCHIII!!! SANA DI KAYO MAGING INACTIVE!!! ${potchi} ${potchi} ${potchi}`.trim();
 
 	message.channel.send(spiel);
 };
