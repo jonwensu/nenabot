@@ -1,6 +1,8 @@
 exports.run = (client, message, args) => {
 	let reply = "BAWAL UTANG! :rage: :rage: :rage:";
-	const target = args[1];
+	const target = args.filter(
+		(f) => process.env.BOT_PREFIX.toLowerCase().trim() !== f.toLowerCase()
+	)[1];
 	if (target && target.toLowerCase() === "nena") {
 		reply =
 			"PUTANG INA MO RIN! :face_with_symbols_over_mouth: :face_with_symbols_over_mouth: :face_with_symbols_over_mouth: ";
