@@ -191,8 +191,8 @@ const items = [
 					"CARAMEL MACCHIATO",
 					"LATTE",
 					"3 IN 1 COFFEE",
-					"FRAPPUCCINO",
-					"BARAKO",
+					"COLD BREW",
+					"KAPE BARAKO",
 				].map(bold);
 
 				let syrup = "";
