@@ -189,7 +189,7 @@ const items = [
 
 				const base = [
 					"CARAMEL MACCHIATO",
-					"LATTE",
+					"CAFE LATTE",
 					"3 IN 1 COFFEE",
 					"COLD BREW",
 					"KAPE BARAKO",
