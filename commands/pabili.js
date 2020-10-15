@@ -165,9 +165,14 @@ const items = [
 				const adlibs = [
 					`na 3 in 1 + 1. Buti pa yung ${item} may +1 ${cry}`,
 					`at nanood ng ${bold(`NETFLIX`)} mag isa habang umiiyak`,
-					`na ${pick(
-						flavors
-					)} flavor sa cone. Nadapa sya sa daan at natapon ito`,
+					...Array(2)
+						.fill()
+						.map(
+							(i) =>
+								`na ${pick(
+									flavors
+								)} flavor sa cone. Nadapa sya sa daan at natapon ito`
+						),
 				];
 
 				return `Bumili si ${mentionAuthor(m)} ng ${item} ${pick(adlibs)}.`;
