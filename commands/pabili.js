@@ -145,7 +145,7 @@ const items = [
 		value: "ice cream",
 		price: 20,
 		success: {
-			rate: 80,
+			rate: 70,
 			spiel: (m, client) => {
 				const item = bold(`ICE CREAM`);
 				const cry =
