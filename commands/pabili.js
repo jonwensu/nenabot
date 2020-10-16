@@ -212,7 +212,7 @@ const items = [
 						"BANANA KETCHUP",
 					].map(bold);
 
-					syrup = ` with **${doRoll(2) + 2} pumps** of ${pick(sauce)}`;
+					syrup = `**${doRoll(2) + 2} pumps** of ${pick(sauce)}`;
 				}
 
 				let toppings = "";
@@ -222,12 +222,15 @@ const items = [
 						bold
 					);
 
-					toppings = ` and ${pick(t)} on top`;
+					toppings = `${pick(t)} on top`;
 				}
+
+				const addons = [syrup, toppings].filter((t) => t.trim()).join(" and ");
+				const addonSpiel = addons ? ` with ${addons}` : "";
 
 				return `One ${pick(size)} ${pick(
 					base
-				)}${syrup}${toppings} for ${mentionAuthor(m)} at the counter please.`;
+				)}${addonSpiel} for ${mentionAuthor(m)} at the counter please.`;
 			},
 		},
 		fail: (message) => {
