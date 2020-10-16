@@ -162,6 +162,7 @@ const items = [
 					"MANG TOMAS",
 					"PASAS",
 				].map((f) => bold(f));
+
 				const adlibs = [
 					`na 3 in 1 + 1. Buti pa yung ${item} may +1 ${cry}`,
 					`at nanood ng ${bold(`NETFLIX`)} mag isa habang umiiyak`,
@@ -201,7 +202,7 @@ const items = [
 				].map(bold);
 
 				let syrup = "";
-				if (doRoll(100) < 50) {
+				if (doRoll(100) < 60) {
 					const sauce = [
 						"VANILLA SYRUP",
 						"HAZELNUT SYRUP",
@@ -214,9 +215,19 @@ const items = [
 					syrup = ` with **${doRoll(2) + 2} pumps** of ${pick(sauce)}`;
 				}
 
-				return `One ${pick(size)} ${pick(base)}${syrup} for ${mentionAuthor(
-					m
-				)} at the counter please.`;
+				let toppings = "";
+
+				if (doRoll(100) < 50) {
+					const t = ["BREAD CRUMBS", "POTCHIS", "ADOBO FLAKES", "PASAS"].map(
+						bold
+					);
+
+					toppings = ` and ${pick(t)} on top`;
+				}
+
+				return `One ${pick(size)} ${pick(
+					base
+				)}${syrup}${toppings} for ${mentionAuthor(m)} at the counter please.`;
 			},
 		},
 		fail: (message) => {

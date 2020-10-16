@@ -5,11 +5,11 @@ exports.run = (client, message, args) => {
 	)[1];
 	if (target && target.toLowerCase() === "nena") {
 		reply =
-			"PUTANG INA MO RIN! :face_with_symbols_over_mouth: :face_with_symbols_over_mouth: :face_with_symbols_over_mouth: ";
+			"PAUTANG NENA MO RIN! :face_with_symbols_over_mouth: :face_with_symbols_over_mouth: :face_with_symbols_over_mouth: ";
 	}
 
 	message.channel.send(reply);
 };
 
 exports.help = `Just an example command. Usage: ${process.env.BOT_PREFIX}example`;
-exports.aliases = ["test", "admin"];
+exports.aliases = ["utang"];
