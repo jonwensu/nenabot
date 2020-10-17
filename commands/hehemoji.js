@@ -2,6 +2,10 @@ const Discord = require("discord.js");
 const emojis = require("../data/emoji/movie");
 const Game = require("../helper/game");
 
+
+function doRoll(max) {
+	return Math.floor(Math.random() * max);
+}
 let timer = null;
 
 const {
@@ -33,7 +37,7 @@ async function showScores(game, message) {
 		.setDescription("Scoreboard:")
 		.addFields(
 			sorted.map(({ tag, score }, i) => ({
-				name: `#${i + 1} ${tag}`,
+				name: `#${i + 1} ${tag}${i === 0 ? ' 🏆' : '' }`,
 				value: `${score} points`,
 			}))
 		);
