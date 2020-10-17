@@ -344,7 +344,7 @@ module.exports = [
 		question: "🤖 🚗 🚚",
 	},
 	{
-		answer: "Transformers",
+		answer: "The Ring",
 		question: "💍 📺 👩 👻",
 	},
 	{
