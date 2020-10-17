@@ -6,7 +6,7 @@ module.exports = (client, message) => {
 	var args = cmd
 		.match(/"[^"]*"|\S+/g)
 		.map((m) => (m.slice(0, 1) === '"' ? m.slice(1, -1) : m));
-	const prefix = process.env.BOT_PREFIX.toLocaleLowerCase();
+	const prefix = process.env.BOT_PREFIX.toLowerCase();
 	try {
 		for (var i in client.commands) {
 			if (cmd.startsWith(prefix + i)) {

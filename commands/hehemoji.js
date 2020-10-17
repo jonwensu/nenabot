@@ -116,7 +116,7 @@ async function showQuestion(game, message) {
 
 async function gatherParticipants(game, message) {
 	const spiel = createMessage().addField(
-		"Starting Emoji Game in 10 seconds.",
+		`Starting Emoji Game in ${+process.env.PARTICIPANT_WAIT_DURATION / 1000} seconds.`,
 		`Please react ${KOALA_ICON} to this message to participate`
 	);
 	const collectorMessage = await message.channel.send(spiel);
