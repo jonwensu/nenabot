@@ -160,7 +160,9 @@ function shuffle(b) {
 }
 
 exports.run = (client, message, args) => {
-	const game = new Game(shuffle(emojis), MAX_ROUNDS);
+	const rounds = args[2] || MAX_ROUNDS;
+
+	const game = new Game(shuffle(emojis), rounds);
 	gatherParticipants(game, message);
 };
 

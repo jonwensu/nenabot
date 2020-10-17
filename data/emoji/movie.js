@@ -145,7 +145,7 @@ module.exports = [
 	{
 		answer: "The Hangover",
 		question: "🎰 🍺🍺🍺🍺 😵",
-		alias: ['Hangover']
+		alias: ["Hangover"],
 	},
 	{
 		answer: "Slumdog Millionaire",
@@ -178,12 +178,12 @@ module.exports = [
 	{
 		answer: "The Lord of the Rings",
 		question: "👦 🧙‍♂️ 💍 🌋",
-		alias: ['Lord of the Rings']
+		alias: ["Lord of the Rings"],
 	},
 	{
 		answer: "ET",
 		question: "👽 👦 🚲 🌙",
-		alias: ['E. T.', 'E.T.']
+		alias: ["E. T.", "E.T."],
 	},
 	{
 		answer: "Beauty and the Beast",
@@ -208,7 +208,7 @@ module.exports = [
 	{
 		answer: "The Kite Runner",
 		question: "🪁 🏃‍♂️",
-		alias: ['Kite Runner']
+		alias: ["Kite Runner"],
 	},
 	{
 		answer: "Babe",
@@ -217,7 +217,7 @@ module.exports = [
 	{
 		answer: "My Super Ex-Girlfriend",
 		question: "🦸‍♀️❌👩‍❤️‍👨",
-		alias: ['My Super Ex Girlfriend']
+		alias: ["My Super Ex Girlfriend"],
 	},
 	{
 		answer: "Before Sunrise",
@@ -244,7 +244,115 @@ module.exports = [
 		question: "🔍🐠",
 	},
 	{
-		answer: "Curious Case of Benjamin Button",
+		answer: "The Curious Case of Benjamin Button",
 		question: "👴🏻➡️ 👨🏼➡️ 👦🏼 ➡️ 👶",
+		alias: ["Curious Case of Benjamin Button"],
+	},
+	{
+		answer: "The Interview",
+		question: "👬🤝🎤🎥🤵🇰🇵 💀",
+	},
+	{
+		answer: "The Human Centipede",
+		question: "👨‍⚕️ 🥫👨🍑🧵👩🍑🧵👩",
+		alias: ["Human Centipede"],
+	},
+	{
+		answer: "Now You See Me",
+		question: "🏇🏇🏇🏇🎩",
+	},
+	{
+		answer: "Baby Driver",
+		question: "👶🎧🚗",
+	},
+	{
+		answer: "Ocean's 11",
+		question: "🌊🌊🌊🕚",
+	},
+	{
+		answer: "The Intern",
+		question: "👖👗🛍️🛒👩👴📝",
+	},
+	{
+		answer: "Kick Ass",
+		question: "🦶🍑",
+	},
+	{
+		answer: "Godzilla",
+		question: "🦎☢️🌉😷",
+	},
+	{
+		answer: "Jumanji",
+		question: "🦁 🐘 🦓 🦏 🎲🎲",
+	},
+	{
+		answer: "Lucy",
+		question: "👩🟦💪🏋️‍♀️🧠🧠🧠💻🌌",
+	},
+	{
+		answer: "Girl With The Dragon Tattoo",
+		question: "👩 🐉",
+	},
+	{
+		answer: "Phantom of the Opera",
+		question: "👻 🎭 🎶",
+	},
+	{
+		answer: "Twilight",
+		question: "🧛‍♂️👩🐺",
+	},
+	{
+		answer: "We're The Millers",
+		question: "🇺🇲 👨‍👩‍👧‍👦🚌 🇲🇽 🌿🌿🌿",
+	},
+	{
+		answer: "Snakes on a Plane",
+		question: "🐍🐍🐍✈️",
+	},
+	{
+		answer: "Rush Hour",
+		question: "👮‍♂️👮🏿",
+	},
+	{
+		answer: "Birdbox",
+		question: "👩‍👧‍👦 🙈 🛶",
+	},
+	{
+		answer: "Ghost in the Shell",
+		question: "👻 🐚",
+	},
+	{
+		answer: "The Cabin in the Woods",
+		question: "🌳🌳🌳🏡🌳🌳🌳",
+		alias: ["Cabin in the Woods"],
+	},
+	{
+		answer: "Gravity",
+		question: "🌏⬇️⬇️⬇️⬇️⬇️",
+	},
+	{
+		answer: "Mr. and Mrs. Smith",
+		question: "🔫🤵👰🔫🔪",
+		alias: ["Mr and Mrs Smith"],
+	},
+	{
+		answer: "Inside Out",
+		question: "😃😢🤢😡😱",
+	},
+	{
+		answer: "Transformers",
+		question: "🤖 🚗 🚚",
+	},
+	{
+		answer: "Transformers",
+		question: "💍 📺 👩 👻",
+	},
+	{
+		answer: "Coco",
+		question: "👦 🎸 👻 👵",
+	},
+	{
+		answer: "Jurassic Park",
+		question: "🦕 🦖 🐊 🏞️",
 	},
 ];
