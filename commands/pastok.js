@@ -16,7 +16,7 @@ const pool = [
 	`Yes or No, Magaling ka ba sa Calculus`,
 	`one million pesos or si crush`,
 	`KZ or Kyla`,
-	`Mahal mo o mahal ako`,
+	`Mahal mo o mahal ka`,
 	`twitter or Instagram`,
 	`Math or Science`,
 	`Dolphy or Vice Ganda`,
@@ -58,6 +58,8 @@ const pool = [
 	`Apple or Banana`,
 	`Hot or Cold`,
 	`In or Out`,
+	`Friend or Lover`,
+	`Glass half empty or half full`,
 ];
 
 function createMessage(target) {
