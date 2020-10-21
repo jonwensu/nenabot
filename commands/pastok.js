@@ -52,6 +52,12 @@ const pool = [
 	`Bumalik sa Past or Makita ang Future`,
 	`Mawala ka or Mawala Ako`,
 	`LDR; Magwowork or Hindi Magwowork`,
+	`Fruits or Veggies`,
+	`Sweet or Savory`,
+	`North or South`,
+	`Apple or Banana`,
+	`Hot or Cold`,
+	`In or Out`,
 ];
 
 function createMessage(target) {
