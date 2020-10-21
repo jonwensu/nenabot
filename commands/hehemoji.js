@@ -2,12 +2,6 @@ const Discord = require("discord.js");
 const emojis = require("../data/emoji/movie");
 const Game = require("../helper/game");
 
-
-function doRoll(max) {
-	return Math.floor(Math.random() * max);
-}
-let timer = null;
-
 const {
 	QUESTION_DURATION,
 	PARTICIPANT_WAIT_DURATION,
