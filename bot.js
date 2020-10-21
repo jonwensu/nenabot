@@ -1,8 +1,15 @@
 require("dotenv").config();
 const Discord = require("discord.js");
 const fs = require("fs");
+const firebase = require("firebase/app");
+require("firebase/database");
 
 const hiddenCommands = ["emoji", "inom", "paninda", "listemoji"];
+
+
+const dbConfig = require("./data/dbConfig");
+
+firebase.initializeApp(dbConfig);
 
 // Create a Discord.Client() instance.
 const client = new Discord.Client();

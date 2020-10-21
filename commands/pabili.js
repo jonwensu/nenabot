@@ -1,23 +1,7 @@
 const Discord = require("discord.js");
 
-const { bold, mentionAuthor } = require("../util/formatUtil");
+const { bold, mentionAuthor, doRoll, pick, shuffle } = require("../util/formatUtil");
 
-function doRoll(max) {
-	return Math.floor(Math.random() * max);
-}
-
-function pick(pool) {
-	return pool[doRoll(pool.length)];
-}
-
-function shuffle(b) {
-	const a = b.slice();
-	for (let i = a.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		[a[i], a[j]] = [a[j], a[i]];
-	}
-	return a;
-}
 
 const items = [
 	{
