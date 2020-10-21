@@ -355,4 +355,45 @@ module.exports = [
 		answer: "Jurassic Park",
 		question: "🦕 🦖 🐊 🏞️",
 	},
+	{
+		answer: "That Thing Called Tadhana",
+		question: "🧳 🙎🏻‍♀️✈️ 🚌 🙍🏻‍♂️ 🏞",
+	},
+	{
+		answer: "Ang Tanging Ina",
+		question: "1️⃣2️⃣  👩‍👧‍👦 1️⃣ 🤱🏼",
+		alias: ["Tanging Ina"],
+	},
+	{
+		answer: "Miss Granny",
+		question: "👵 📸 👩 🎤",
+	},
+	{
+		answer: "I'm Drunk I Love You",
+		question: "🍻 👩🏻💔🧑🏻🍻",
+	},
+	{
+		answer: "Bata, Bata Paano Ka Ginawa",
+		question: "👶🏼 👶🏼❓🤰🏼",
+	},
+	{
+		answer: "Ang Panday",
+		question: "🗡  🧝🏼‍♂️",
+	},
+	{
+		answer: "One More Chance",
+		question: "👷🏼‍♂️ 💔 👷🏼‍♀️ ❤️ 👍🏼",
+	},
+	{
+		answer: "Heneral Luna",
+		question: "💂🏼 🌙",
+	},
+	{
+		answer: "Ang Kwento Nating Dalawa",
+		question: "🙎🏻  🚟🚟🚟 👨🏻‍🏫  📖",
+	},
+	{
+		answer: "Kita Kita",
+		question: "🇯🇵 👩🏻❎ 👀👨🏻",
+	},
 ];
