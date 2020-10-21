@@ -61,10 +61,11 @@ function createMessage(target) {
 exports.run = (client, message, args) => {
 	const {
 		channel: { guild },
-		author: { username, displayAvatarURL },
+		author: { username },
 	} = message;
 
 	const mention = message.mentions.members.first();
+	const avatar = mention || { user: message.author };
 	const member = mention || guild.member(message.author);
 	const nickname = member ? member.displayName : null;
 	const spiel = createMessage(`${pick(pool).toUpperCase()}?`)
@@ -72,7 +73,7 @@ exports.run = (client, message, args) => {
 			`${nickname || username}, IKAW NA!`,
 			"https://cdn.discordapp.com/attachments/765047137473265714/768419284765507634/tito_boy.png"
 		)
-		.setThumbnail(message.author.displayAvatarURL({ format: "png" }));
+		.setThumbnail(avatar.user.displayAvatarURL({ format: "png" }));
 	message.channel.send(spiel);
 };
 
