@@ -87,7 +87,7 @@ module.exports = [
 	`Glasses or Contacts`,
 	`Nice smile or Nice eyes`,
 	`Marvel or DC`,
-	`Worst: Bad breath or Body odor`,
+	`Worse: Bad breath or Body odor`,
 	`Beard or Clean-shaved`,
 	`Spam or Maling`,
 	`Teks or Pogs`,
