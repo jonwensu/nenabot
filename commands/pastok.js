@@ -33,9 +33,11 @@ exports.run = (client, message, args) => {
 
 	const activeQ = pick(filtered).trim().toUpperCase();
 
+	const cd = Math.floor(pool.length * 0.3);
+
 	recent.push({
 		question: activeQ,
-		cooldown: DEFAULT_CD,
+		cooldown: cd,
 	});
 
 	const spiel = createMessage(`${activeQ}?`)
