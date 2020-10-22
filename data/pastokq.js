@@ -128,7 +128,7 @@ module.exports = [
 	`Tulfo o Face to Face`,
 	`Kapamilya or Kapuso`,
 	`Globe or Smart`,
-	`MMK o Magpakilanman`,
+	`MMK o Magpakailanman`,
 	`Fried or Boiled`,
 	`Langit o Lupa`,
 ];
