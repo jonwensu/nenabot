@@ -1,5 +1,17 @@
 const Discord = require("discord.js");
-const pool = require("../data/pastokq");
+const firebase = require("firebase/app");
+const database = firebase.database();
+
+let pool = [];
+
+const init = () => {
+	database.ref("/questions").on("value", (snapshot) => {
+		pool = snapshot.val();
+		console.log("Added", pool[pool.length - 1]);
+	});
+};
+
+init();
 
 const { mentionAuthor, pick } = require("../util/formatUtil");
 
@@ -8,9 +20,7 @@ function createMessage(target) {
 }
 let recent = [];
 
-const DEFAULT_CD = 10;
-
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
 	const {
 		channel: { guild },
 		author: { username },
@@ -33,7 +43,7 @@ exports.run = (client, message, args) => {
 
 	const activeQ = pick(filtered).trim().toUpperCase();
 
-	const cd = Math.floor(pool.length * 0.3);
+	const cd = Math.floor(pool.length * 0.4);
 
 	recent.push({
 		question: activeQ,
