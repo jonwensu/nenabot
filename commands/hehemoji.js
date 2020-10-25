@@ -3,12 +3,16 @@ const firebase = require("firebase/app");
 const database = firebase.database();
 // const emojis = require("../data/emoji/movie");
 const Game = require("../helper/game");
+const { bold } = require("../util/formatUtil");
 
 let emojis = [];
 
 const init = () => {
 	database.ref("/emojis/movie").on("value", (snapshot) => {
-		emojis = snapshot.val();
+		emojis = snapshot.val().map((e) => ({
+			...e,
+			category: snapshot.key.toUpperCase(),
+		}));
 	});
 };
 
@@ -69,10 +73,19 @@ async function showNextQuestion(game, message, spiel) {
 
 async function showQuestion(game, message) {
 	const { round, totalRounds } = game;
-	const { question, answer, alias } = game.currentEmoji();
+	const {
+		question,
+		answer,
+		alias,
+		category,
+		producerLocation,
+	} = game.currentEmoji();
 	const spiel = createMessage()
-		.addField(`Guess the movie:`, question)
-		.setFooter(`Round ${round + 1} of ${totalRounds}`);
+		.setTitle(`Guess the ${category.toLowerCase()}:`)
+		.setDescription(question)
+		.setFooter(
+			`Hint: ${producerLocation}\n\nRound ${round + 1} of ${totalRounds}`
+		);
 	await message.channel.send(spiel);
 
 	const filter = (m) => game.participants.some(({ id }) => id === m.author.id);
@@ -114,10 +127,12 @@ async function showQuestion(game, message) {
 	collector.on("end", async (m, reason) => {
 		console.log("endreason", reason);
 		if (reason !== "answered") {
-			const spiel = createMessage().addField(
-				`**${game.currentEmoji().answer.toUpperCase()}**`,
-				"was the correct answer"
-			);
+			const spiel = createMessage()
+				.setTitle("Time's Up!")
+				.addField(
+					`**${game.currentEmoji().answer.toUpperCase()}**`,
+					"was the correct answer"
+				);
 
 			await showNextQuestion(game, message, spiel);
 		}

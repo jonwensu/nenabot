@@ -9,16 +9,16 @@ const HEIGHT = 420;
 const AVATAR_W = 70;
 const AVATAR_H = 70;
 
-const BATOKEE_W = 60;
-const BATOKEE_H = 60;
+const SABUNOTEE_W = 60;
+const SABUNOTEE_H = 60;
 
-const batoker = (w, h) => ({
+const sabunoter = (w, h) => ({
 	x: w * 0.1,
 	y: h * 0.2,
 });
-const batokee = (w, h) => ({
-	x: w * 0.27,
-	y: h * 0.57,
+const sabunotee = (w, h) => ({
+	x: w * 0.03,
+	y: h * 0.75,
 });
 
 exports.run = async (client, message, args) => {
@@ -28,25 +28,36 @@ exports.run = async (client, message, args) => {
 	const canvas = Canvas.createCanvas(WIDTH, HEIGHT);
 	const ctx = canvas.getContext("2d");
 	const background = await Canvas.loadImage(SABUNOT_IMG);
-	const batokerAvatar = await Canvas.loadImage(
+	const sabunoterAvatar = await Canvas.loadImage(
 		author.displayAvatarURL({ format: "png" })
 	);
-	const batokeeAvatar = await Canvas.loadImage(
+	const sabunoteeAvatar = await Canvas.loadImage(
 		mention.user.displayAvatarURL({ format: "png" })
 	);
 
-	const batokerDim = batoker(WIDTH, HEIGHT);
-	const batokeeDim = batokee(WIDTH, HEIGHT);
+	const sabunoterDim = sabunoter(WIDTH, HEIGHT);
+	const sabunoteeDim = sabunotee(WIDTH, HEIGHT);
 
 	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-	ctx.drawImage(batokerAvatar, batokerDim.x, batokerDim.y, AVATAR_W, AVATAR_H);
 	ctx.drawImage(
-		batokeeAvatar,
-		batokeeDim.x,
-		batokeeDim.y,
-		BATOKEE_W,
-		BATOKEE_H
+		sabunoterAvatar,
+		sabunoterDim.x,
+		sabunoterDim.y,
+		AVATAR_W,
+		AVATAR_H
 	);
+
+	ctx.save();
+	ctx.rotate((-30 * Math.PI) / 180);
+	ctx.drawImage(
+		sabunoteeAvatar,
+		sabunoteeDim.x,
+		sabunoteeDim.y,
+		SABUNOTEE_W,
+		SABUNOTEE_H
+	);
+
+	ctx.restore();
 
 	const attachment = new Discord.MessageAttachment(
 		canvas.toBuffer(),
