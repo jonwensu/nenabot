@@ -14,7 +14,8 @@ module.exports = (client, message) => {
 				break;
 			} else {
 				if (client.commands[i].aliases) {
-					if (client.commands[i].aliases.includes(args[0].split(prefix)[1])) {
+					const [_, aliasCmd] = args;
+					if (client.commands[i].aliases.includes(aliasCmd)) {
 						client.commands[i].run(client, message, args);
 						break;
 					}
