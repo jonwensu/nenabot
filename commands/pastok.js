@@ -13,7 +13,7 @@ const init = () => {
 
 init();
 
-const { mentionAuthor, pick } = require("../util/formatUtil");
+const { pick } = require("../util/formatUtil");
 
 function createMessage(target) {
 	return new Discord.MessageEmbed().setColor("#0099ff").setTitle(target);
