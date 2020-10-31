@@ -36,7 +36,7 @@ exports.run = (client, message, args) => {
 	const embed = createMessage()
 		.setTitle("Trick or Treat 🎃")
 		.setDescription(spiel)
-		.setImage(candy.img);
+		.setImage(pick(candy.img));
 
 	message.channel.send(embed);
 };
