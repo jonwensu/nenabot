@@ -84,10 +84,13 @@ async function potchiDrop(client) {
 		message.delete({ timeout: POTCHI_DROP_REACT_DURATION - 500 });
 		collector.on("collect", async (r, user) => {
 			console.log("User added:", user.id);
-			pickers.push({
-				user,
-				quantity: givePotchi(),
-			});
+			const alreadyAdded = pickers.some(({ user: { id } }) => id === user.id);
+			if (!alreadyAdded) {
+				pickers.push({
+					user,
+					quantity: givePotchi(),
+				});
+			}
 		});
 
 		collector.on("end", async (collected) => {
