@@ -11,10 +11,12 @@
   "author": "Sebastian Alsina",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.0",
     "canvas": "^2.6.1",
-    "discord.js": "^12.3.1",
+    "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",
     "firebase": "^7.24.0",
-    "fs": "0.0.1-security"
+    "fs": "0.0.1-security",
+    "node-cron": "^2.0.3"
   }
 }

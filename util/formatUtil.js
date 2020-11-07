@@ -1,3 +1,5 @@
+const Discord = require("discord.js");
+
 function bold(str) {
 	return `**${str}**`;
 }
@@ -30,6 +32,10 @@ function doRoll(max) {
 	return Math.floor(Math.random() * max);
 }
 
+function rateRoll(rate) {
+	return doRoll(100) < rate;
+}
+
 function pick(pool) {
 	return pool[doRoll(pool.length)];
 }
@@ -43,6 +49,14 @@ function shuffle(b) {
 	return a;
 }
 
+function createEmbedMessage(color = "#0099ff", title) {
+	return new Discord.MessageEmbed({ color, title });
+}
+
+function getEmoji(client, name, fallback = ":smile:") {
+	return client.emojis.cache.find((emoji) => emoji.name === name) || fallback;
+}
+
 module.exports = {
 	bold,
 	italic,
@@ -53,5 +67,8 @@ module.exports = {
 	mentionAuthor,
 	doRoll,
 	pick,
-	shuffle
+	shuffle,
+	createEmbedMessage,
+	getEmoji,
+	rateRoll,
 };
