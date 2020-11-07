@@ -1,4 +1,5 @@
 const dotenv = require("dotenv");
+// const firebase = require("firebase/app");
 
 dotenv.config();
 
@@ -11,7 +12,7 @@ const {
 	FIREBASE_APP_ID,
 } = process.env;
 
-module.exports = {
+const config = {
 	apiKey: FIREBASE_API_KEY,
 	authDomain: FIREBASE_AUTH_DOMAIN,
 	databaseURL: FIREBASE_DATABASE_URL,
@@ -19,4 +20,14 @@ module.exports = {
 	storageBucket: FIREBASE_STORAGE_BUCKET,
 	appId: FIREBASE_APP_ID,
 	appName: "ekyc-mock-server",
+};
+
+var database = null;
+
+module.exports = {
+	config,
+	// init: () => {
+	// 	firebase.initializeApp(config);
+	// 	database = firebase.database();
+	// },
 };

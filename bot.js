@@ -6,13 +6,15 @@ require("firebase/database");
 
 const hiddenCommands = ["emoji", "inom", "paninda", "listemoji"];
 
-
-const dbConfig = require("./data/dbConfig");
+const { config: dbConfig } = require("./data/dbConfig");
+const cron = require("./helper/cron");
 
 firebase.initializeApp(dbConfig);
+const database = firebase.database();
 
 // Create a Discord.Client() instance.
 const client = new Discord.Client();
+client.database = database;
 
 // Load all commands into the client's commands object from the /commands/ folder.
 client.commands = {};
@@ -48,7 +50,11 @@ fs.readdir("./events", (err, files) => {
 });
 
 // Initiate the connection with Discord using the token located in the client's settings object.
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN).then(() => {
+	client.database = database;
+	console.log("logged In");
+	cron.execute(client);
+});
 
 // Catch and report discord.js errors.
 client.on("error", (err) => console.error(err));
