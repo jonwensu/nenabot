@@ -2,6 +2,7 @@ const cron = require("node-cron");
 const axios = require("axios");
 
 const InventoryService = require("../services/InventoryService");
+const UserService = require("../services/UserService");
 const POTCHI_ID = 1;
 const MYSTERIOUS_ITEM_ID = 2;
 
@@ -10,6 +11,7 @@ const {
 	POTCHI_DROP_CRON_SCHEDULE,
 	POTCHI_DROP_REACT_DURATION,
 	POTCHI_DROP_RATE,
+	POTCHI_DROP_MASSIVE_RATE,
 	POTCHI_DROP_MULTIPLIER,
 	POTCHI_DROP_PICKER_SUMMARY_DURATION,
 	POTCHI_DROP_CHANNEL_POOL,
@@ -22,6 +24,8 @@ const {
 	rateRoll,
 	mentionAuthor,
 	doRoll,
+	doRollRange,
+	bold,
 } = require("../util/formatUtil");
 
 const POTCHI_IMG =
@@ -44,20 +48,26 @@ module.exports = {
 };
 
 async function potchiDrop(client) {
-	const { cache } = client.channels;
-	let channel = null;
 	const channelId = pick(CHANNEL_POOL);
-	if (!!cache.length) {
-		channel = await client.channels.fetch(channelId);
-	} else {
-		channel = cache.find(({ id }) => channelId === id);
-	}
+	const channel = await client.channels.fetch(channelId);
 
 	if (channel) {
 		const potchi = getEmoji(client, "potchi");
+		const potchiPing = getEmoji(client, "a_potchiPing") || "🚨";
 		const sumabog = getEmoji(client, "a_sumabog") || "😢";
-		const embed = createMessage("Random Potchi Drop!!")
-			.setDescription(`React ${potchi} to this message to pick them up`)
+		const isMassiveDrop = rateRoll(POTCHI_DROP_MASSIVE_RATE);
+		const title = isMassiveDrop
+			? `MASSIVE POTCHI DROP`
+			: "Random Potchi Drop!!";
+		const type = isMassiveDrop ? "MASSIVE " : "";
+		const addtlDesc = isMassiveDrop
+			? `${potchiPing} ${bold(`MAMIII ALERT MARAMI TO!!!`)} ${potchiPing}\n\n`
+			: "";
+
+		const embed = createMessage(title)
+			.setDescription(
+				`${addtlDesc}React ${potchi} to this message to pick them up`
+			)
 			.setFooter(`Ends in ${POTCHI_DROP_REACT_DURATION / 1000} seconds`);
 		const message = await channel.send(embed);
 		await message.react(potchi);
@@ -68,7 +78,7 @@ async function potchiDrop(client) {
 					description: `Channel: ${channel}`,
 					color: 3067672,
 					author: {
-						name: "Potchi Drop Started",
+						name: `${type}Potchi Drop Started`,
 						icon_url: POTCHI_IMG,
 					},
 				},
@@ -86,9 +96,20 @@ async function potchiDrop(client) {
 			console.log("User added:", user.id);
 			const alreadyAdded = pickers.some(({ user: { id } }) => id === user.id);
 			if (!alreadyAdded) {
+				const multiplier = isMassiveDrop
+					? POTCHI_DROP_MULTIPLIER * 2
+					: POTCHI_DROP_MULTIPLIER;
+				const min = isMassiveDrop ? 5 : 2;
+				const max = isMassiveDrop ? 10 : 5;
+
+				const test = Array(100)
+					.fill()
+					.map(() => givePotchi(multiplier, min, max));
+				console.log("test", test);
+
 				pickers.push({
 					user,
-					quantity: givePotchi(),
+					quantity: givePotchi(multiplier, min, max),
 				});
 			}
 		});
@@ -101,7 +122,7 @@ async function potchiDrop(client) {
 				)
 				.join("\n");
 
-			let embed = createMessage("Potchi Drop Event Ended");
+			let embed = createMessage(`${type}Potchi Drop Event Ended`);
 
 			if (pickers.length > 0) {
 				await updateInventory(client, pickers);
@@ -112,7 +133,7 @@ async function potchiDrop(client) {
 						`${joined}\n\n*Type **${process.env.BOT_PREFIX} inv** to check you inventory*`
 					);
 			} else {
-				embed = createMessage("Potchi Drop Event Ended").setDescription(
+				embed = createMessage(`${type}Potchi Drop Event Ended`).setDescription(
 					`Kinain ng lupa ang mga potchi kasi walang pumulot ${sumabog}`
 				);
 			}
@@ -131,7 +152,7 @@ async function potchiDrop(client) {
 						}`,
 						color: 15402245,
 						author: {
-							name: "Potchi Drop Ended",
+							name: `${type}Potchi Drop Ended`,
 							icon_url: POTCHI_IMG,
 						},
 						footer: {
@@ -144,14 +165,23 @@ async function potchiDrop(client) {
 	}
 }
 
-function givePotchi(range = 5) {
-	return Math.ceil((doRoll(range) + 1) * parseFloat(POTCHI_DROP_MULTIPLIER));
+function givePotchi(multiplier = POTCHI_DROP_MULTIPLIER, min = 1, max = 5) {
+	return Math.ceil((doRollRange(min, max) + 1) * parseFloat(multiplier));
 }
 
 async function updateInventory(client, pickers) {
 	const inventoryService = new InventoryService(client.database);
+	const userService = new UserService(client.database);
 
 	const invs = (await inventoryService.getAll()) || {};
+
+	const userUpdate = pickers.reduce((prev, next) => {
+		const { user } = next;
+		return {
+			...prev,
+			[user.id]: user,
+		};
+	}, {});
 	const update = pickers.reduce((prev, next) => {
 		const { user, quantity } = next;
 		const out = { ...prev };
@@ -181,6 +211,8 @@ async function updateInventory(client, pickers) {
 		return out;
 	}, {});
 
+	console.log("userUpdate", userUpdate);
 	console.log("updates", update);
 	await inventoryService.update(update);
+	await userService.updateUsers(userUpdate);
 }

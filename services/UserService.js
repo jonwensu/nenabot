@@ -10,9 +10,14 @@ class UserService {
 		return result.val();
 	}
 
-	async save(user, update = false) {
+	async save(user) {
 		await this.database.ref(`${this.baseRef}/${user.id}`).set(user);
 		return user;
+	}
+
+	async updateUsers(users) {
+		await this.database.ref(this.baseRef).update(users);
+		return users;
 	}
 }
 
