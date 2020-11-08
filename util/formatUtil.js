@@ -32,6 +32,12 @@ function doRoll(max) {
 	return Math.floor(Math.random() * max);
 }
 
+function doRollRange(mn, mx) {
+	const min = Math.ceil(mn);
+	const max = Math.floor(mx);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function rateRoll(rate) {
 	return doRoll(100) < rate;
 }
@@ -66,6 +72,7 @@ module.exports = {
 	code,
 	mentionAuthor,
 	doRoll,
+	doRollRange,
 	pick,
 	shuffle,
 	createEmbedMessage,

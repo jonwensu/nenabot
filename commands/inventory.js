@@ -6,9 +6,18 @@ exports.run = async (client, message, args) => {
 	const inventoryService = new InventoryService(client.database);
 	const potchi =
 		client.emojis.cache.find((emoji) => emoji.id === "potchi") || "";
+	const isDM = message.type === "dm";
+
+	const sendMsg = async (m) => {
+		if (isDM) {
+			await message.reply(m);
+		} else {
+			await message.author.send(m);
+		}
+	};
 	const inv = await inventoryService.getByUserId(message.author.id);
 	if (!inv) {
-		await message.author.send("WALANG LAMAN INVENTORY MO MAMIII");
+		await sendMsg("WALANG LAMAN INVENTORY MO MAMIII");
 	} else {
 		const itemService = new ItemService(client.database);
 		const items = await itemService.getAll();
@@ -28,9 +37,11 @@ exports.run = async (client, message, args) => {
 				"https://cdn.discordapp.com/attachments/765047137473265714/774519411612581898/chest.jpg"
 			)
 			.addFields(fields);
-		await message.author.send(embed);
+		await sendMsg(embed);
 	}
-	message.delete();
+	if (!isDM) {
+		message.delete();
+	}
 };
 
 exports.help = "Send a DM of your inventory";
