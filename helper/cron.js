@@ -6,12 +6,21 @@ const UserService = require("../services/UserService");
 const POTCHI_ID = 1;
 const MYSTERIOUS_ITEM_ID = 2;
 
+const crates = [
+	{ name: "A", emoji: "🇦" },
+	{ name: "B", emoji: "🇧" },
+	{ name: "C", emoji: "🇨" },
+	{ name: "D", emoji: "🇩" },
+	{ name: "E", emoji: "🇪" },
+];
+
 const {
 	POTCHI_DROP_WEBHOOK,
 	POTCHI_DROP_CRON_SCHEDULE,
 	POTCHI_DROP_REACT_DURATION,
 	POTCHI_DROP_RATE,
 	POTCHI_DROP_MASSIVE_RATE,
+	POTCHI_DROP_MULTICRATE_RATE,
 	POTCHI_DROP_MULTIPLIER,
 	POTCHI_DROP_PICKER_SUMMARY_DURATION,
 	POTCHI_DROP_CHANNEL_POOL,
@@ -23,9 +32,11 @@ const {
 	getEmoji,
 	rateRoll,
 	mentionAuthor,
-	doRoll,
+	italic,
 	doRollRange,
 	bold,
+	underline,
+	shuffle,
 } = require("../util/formatUtil");
 
 const POTCHI_IMG =
@@ -52,116 +63,7 @@ async function potchiDrop(client) {
 	const channel = await client.channels.fetch(channelId);
 
 	if (channel) {
-		const potchi = getEmoji(client, "potchi");
-		const potchiPing = getEmoji(client, "a_potchiPing") || "🚨";
-		const sumabog = getEmoji(client, "a_sumabog") || "😢";
-		const isMassiveDrop = rateRoll(POTCHI_DROP_MASSIVE_RATE);
-		const title = isMassiveDrop
-			? `MASSIVE POTCHI DROP`
-			: "Random Potchi Drop!!";
-		const type = isMassiveDrop ? "MASSIVE " : "";
-		const addtlDesc = isMassiveDrop
-			? `${potchiPing} ${bold(`MAMIII ALERT MARAMI TO!!!`)} ${potchiPing}\n\n`
-			: "";
-
-		const embed = createMessage(title)
-			.setDescription(
-				`${addtlDesc}React ${potchi} to this message to pick them up`
-			)
-			.setFooter(`Ends in ${POTCHI_DROP_REACT_DURATION / 1000} seconds`);
-		const message = await channel.send(embed);
-		await message.react(potchi);
-
-		axios.post(POTCHI_DROP_WEBHOOK, {
-			embeds: [
-				{
-					description: `Channel: ${channel}`,
-					color: 3067672,
-					author: {
-						name: `${type}Potchi Drop Started`,
-						icon_url: POTCHI_IMG,
-					},
-				},
-			],
-		});
-
-		const pickers = [];
-
-		const filter = (r) => r.emoji.name === potchi.name;
-		const collector = message.createReactionCollector(filter, {
-			time: POTCHI_DROP_REACT_DURATION,
-		});
-		message.delete({ timeout: POTCHI_DROP_REACT_DURATION - 500 });
-		collector.on("collect", async (r, user) => {
-			console.log("User added:", user.id);
-			const alreadyAdded = pickers.some(({ user: { id } }) => id === user.id);
-			if (!alreadyAdded) {
-				const multiplier = isMassiveDrop
-					? POTCHI_DROP_MULTIPLIER * 2
-					: POTCHI_DROP_MULTIPLIER;
-				const min = isMassiveDrop ? 5 : 2;
-				const max = isMassiveDrop ? 10 : 5;
-
-				const test = Array(100)
-					.fill()
-					.map(() => givePotchi(multiplier, min, max));
-				console.log("test", test);
-
-				pickers.push({
-					user,
-					quantity: givePotchi(multiplier, min, max),
-				});
-			}
-		});
-
-		collector.on("end", async (collected) => {
-			const joined = pickers
-				.map(
-					({ user: author, quantity }) =>
-						`${mentionAuthor({ author })} - ${quantity}pcs`
-				)
-				.join("\n");
-
-			let embed = createMessage(`${type}Potchi Drop Event Ended`);
-
-			if (pickers.length > 0) {
-				await updateInventory(client, pickers);
-
-				embed = embed
-					.setTitle("The following members picked up some potchis:")
-					.setDescription(
-						`${joined}\n\n*Type **${process.env.BOT_PREFIX} inv** to check you inventory*`
-					);
-			} else {
-				embed = createMessage(`${type}Potchi Drop Event Ended`).setDescription(
-					`Kinain ng lupa ang mga potchi kasi walang pumulot ${sumabog}`
-				);
-			}
-			const summary = await message.channel.send(embed);
-			summary.delete({ timeout: POTCHI_DROP_PICKER_SUMMARY_DURATION });
-
-			const total = pickers
-				.map(({ quantity }) => quantity)
-				.reduce((prev, next) => +prev + +next, 0);
-
-			axios.post(POTCHI_DROP_WEBHOOK, {
-				embeds: [
-					{
-						description: `Channel: ${channel}\n\nPickers:\n${
-							pickers.length ? joined : "None"
-						}`,
-						color: 15402245,
-						author: {
-							name: `${type}Potchi Drop Ended`,
-							icon_url: POTCHI_IMG,
-						},
-						footer: {
-							text: `Total: ${total}`,
-						},
-					},
-				],
-			});
-		});
+		await executeDrop(client, channel);
 	}
 }
 
@@ -215,4 +117,224 @@ async function updateInventory(client, pickers) {
 	console.log("updates", update);
 	await inventoryService.update(update);
 	await userService.updateUsers(userUpdate);
+}
+
+function collect(dropType, rates, pickers) {
+	return async (r, user) => {
+		const alreadyAdded = pickers.some(({ user: { id } }) => id === user.id);
+		if (!alreadyAdded) {
+			console.log("User added:", user.id);
+			const multiplier = dropType.multiplier || rates.NORMAL.multiplier;
+			const min = dropType.min || rates.NORMAL.min;
+			const max = dropType.max || rates.NORMAL.max;
+
+			pickers.push({
+				user,
+				quantity: givePotchi(multiplier, min, max),
+			});
+		}
+	};
+}
+
+async function executeDrop(client, channel) {
+	// emojis
+	const potchi = getEmoji(client, "potchi");
+	const potchiPing = getEmoji(client, "a_potchiPing") || "🚨";
+	const sumabog = getEmoji(client, "a_sumabog") || "😢";
+	const crateEmojis = crates.map((c) => c.emoji);
+
+	const NORMAL_RATE =
+		100 - (+POTCHI_DROP_MASSIVE_RATE + +POTCHI_DROP_MULTICRATE_RATE);
+
+	const rates = {
+		NORMAL: {
+			name: "POTCHI_DROP_NORMAL",
+			value: NORMAL_RATE,
+			title: "RANDOM POTCHI DROP",
+			min: 2,
+			max: 5,
+			multiplier: POTCHI_DROP_MULTIPLIER,
+			reactions: [potchi],
+		},
+		MASSIVE: {
+			name: "POTCHI_DROP_MASSIVE",
+			value: POTCHI_DROP_MASSIVE_RATE,
+			title: "MASSIVE POTCHI DROP",
+			description: `${potchiPing} ${bold(
+				`MAMIII ALERT MARAMI TO!!!`
+			)} ${potchiPing}\n\nReact ${potchi} to this message to pick them up`,
+			min: 5,
+			max: 10,
+			multiplier: POTCHI_DROP_MULTIPLIER * 2,
+			reactions: [potchi],
+		},
+		MULTICRATE: {
+			name: "POTCHI_DROP_MULTICRATE",
+			value: POTCHI_DROP_MULTICRATE_RATE,
+			title: "MULTICRATE DROP",
+			description: `${bold(underline(`CHOOSE A CRATE`))}\n\n${crateEmojis
+				.map((c) => c)
+				.join("  🔸  ")}\n\n${italic(
+				`(The first one you pick will be acknowledged)`
+			)}`,
+			reactions: crateEmojis,
+			collect: (dropType, rates, pickers, { crateMap }) => async (r, user) => {
+				const alreadyAdded = pickers.some(({ user: { id } }) => id === user.id);
+
+				if (!alreadyAdded) {
+					console.log("User added:", user.id);
+
+					const match = crates.find(({ emoji }) => emoji === r.emoji.name);
+
+					pickers.push({
+						user,
+						quantity: crateMap[match.name],
+						crate: match.name,
+					});
+
+					console.log(pickers);
+				}
+			},
+			filter: (r, user) => !user.bot && crateEmojis.includes(r.emoji.name),
+		},
+	};
+
+	const pool = Object.keys(rates).reduce(
+		(prev, next) =>
+			prev.concat(
+				Array(+rates[next].value)
+					.fill()
+					.map(() => next)
+			),
+		[]
+	);
+
+	const dropType = rates[pick(pool)];
+
+	const embed = createMessage(dropType.title)
+		.setDescription(
+			`${
+				dropType.description ||
+				`React ${potchi} to this message to pick them up`
+			}`
+		)
+		.setFooter(
+			`Ends in ${Math.floor(POTCHI_DROP_REACT_DURATION / 1000)} seconds`
+		);
+	const message = await channel.send(embed);
+
+	const crateContents = shuffle([
+		givePotchi(),
+		givePotchi(),
+		givePotchi(POTCHI_DROP_MULTIPLIER * 2, 5, 10),
+		1,
+		0,
+	]);
+
+	const crateMap = crates.reduce(
+		(prev, next, i) => ({
+			...prev,
+			[next.name]: crateContents[i],
+		}),
+		{}
+	);
+
+	const pickers = [];
+	let spiel = "";
+
+	const filter =
+		dropType.filter || ((r, user) => !user.bot && r.emoji.name === potchi.name);
+	const collector = message.createReactionCollector(filter, {
+		time: POTCHI_DROP_REACT_DURATION,
+	});
+	message.delete({ timeout: POTCHI_DROP_REACT_DURATION - 500 });
+
+	collector.on(
+		"collect",
+		dropType.collect
+			? dropType.collect(dropType, rates, pickers, { crateMap })
+			: collect(dropType, rates, pickers)
+	);
+
+	collector.on("end", async () => {
+		let embed = createMessage(`${dropType.title} ENDED`);
+		const tip = italic(
+			`Type ${bold(`${process.env.BOT_PREFIX} inv`)} to check you inventory`
+		);
+		const joined = pickers
+			.map(
+				({ user: author, quantity }) =>
+					`${mentionAuthor({ author })} - ${quantity}pcs`
+			)
+			.join("\n");
+
+		if (pickers.length > 0) {
+			await updateInventory(client, pickers);
+
+			if (dropType.name === rates.MULTICRATE.name) {
+				spiel = crates
+					.map((c) => {
+						const p = pickers
+							.filter((pp) => pp.crate === c.name)
+							.map((pp) => mentionAuthor({ author: pp.user }));
+						const s = p.length > 0 ? p.join("\n") : "None";
+						return `${bold(
+							`CRATE ${c.emoji} - ${crateMap[c.name]}pc${
+								crateMap[c.name] === 1 ? "" : "s"
+							} each`
+						)}\n${s}`;
+					})
+					.join("\n\n");
+				embed = embed
+					.setTitle("The following members picked up some potchis:")
+					.setDescription(`${spiel}\n\n${tip}`);
+			} else {
+				embed = embed
+					.setTitle("The following members picked up some potchis:")
+					.setDescription(`${joined}\n\n${tip}`);
+				spiel = pickers.length ? joined : "None";
+			}
+		} else {
+			embed = createMessage(`${dropType.title} ENDED`).setDescription(
+				`Kinain ng lupa ang mga potchi kasi walang pumulot ${sumabog}`
+			);
+		}
+		const summary = await message.channel.send(embed);
+		summary.delete({ timeout: POTCHI_DROP_PICKER_SUMMARY_DURATION });
+
+		const total = pickers
+			.map(({ quantity }) => quantity)
+			.reduce((prev, next) => +prev + +next, 0);
+
+		await axios.post(POTCHI_DROP_WEBHOOK, {
+			embeds: [
+				{
+					description: `Channel: ${channel}\n\nPickers:\n${spiel}`,
+					color: 15402245,
+					author: {
+						name: `${dropType.title} Ended`,
+						icon_url: POTCHI_IMG,
+					},
+					footer: {
+						text: `Total: ${total}`,
+					},
+				},
+			],
+		});
+	});
+
+	Promise.all(dropType.reactions.map(async (r) => await message.react(r)));
+
+	axios.post(POTCHI_DROP_WEBHOOK, {
+		embeds: [
+			{
+				description: `Channel: ${channel}`,
+				color: 3067672,
+				author: {
+					name: `${dropType.title} STARTED`,
+					icon_url: POTCHI_IMG,
+				},
+			},
+		],
+	});
 }
