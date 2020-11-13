@@ -312,7 +312,7 @@ async function executeDrop(client, channel) {
 					description: `Channel: ${channel}\n\nPickers:\n${spiel}`,
 					color: 15402245,
 					author: {
-						name: `${dropType.title} Ended`,
+						name: `${dropType.title} ENDED`,
 						icon_url: POTCHI_IMG,
 					},
 					footer: {
