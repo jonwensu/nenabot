@@ -225,7 +225,7 @@ async function executeDrop(client, channel) {
 
 	const crateContents = shuffle([
 		givePotchi(),
-		givePotchi(),
+		givePotchi(POTCHI_DROP_MULTIPLIER, 6, 8),
 		givePotchi(POTCHI_DROP_MULTIPLIER * 2, 5, 10),
 		1,
 		0,
@@ -264,7 +264,9 @@ async function executeDrop(client, channel) {
 		const joined = pickers
 			.map(
 				({ user: author, quantity }) =>
-					`${mentionAuthor({ author })} - ${quantity}pcs`
+					`${mentionAuthor({ author })} - ${quantity}pc${
+						quantity !== 1 ? "s" : ""
+					}`
 			)
 			.join("\n");
 
