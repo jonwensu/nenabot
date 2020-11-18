@@ -12,9 +12,15 @@ const cron = require("./helper/cron");
 firebase.initializeApp(dbConfig);
 const database = firebase.database();
 
+const { BOT_ACTIVITY_NAME, BOT_ACTIVITY_TYPE } = process.env;
+
 // Create a Discord.Client() instance.
-const client = new Discord.Client();
+const client = new Discord.Client({
+	partials: ["MESSAGE", "CHANNEL", "REACTION"],
+});
 client.database = database;
+
+client.activity = { name: BOT_ACTIVITY_NAME, type: BOT_ACTIVITY_TYPE };
 
 // Load all commands into the client's commands object from the /commands/ folder.
 client.commands = {};

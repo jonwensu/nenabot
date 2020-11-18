@@ -6,4 +6,9 @@ module.exports = (client) => {
 		).join(`, ${process.env.BOT_PREFIX}`)}`
 	);
 	console.log(`Events loaded: ${Object.keys(client.events).join(`, `)}`);
+
+	client.user.setPresence({
+		activity: client.activity,
+		status: "online",
+	});
 };
