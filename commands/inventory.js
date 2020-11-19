@@ -1,12 +1,15 @@
 const InventoryService = require("../services/InventoryService");
 const ItemService = require("../services/ItemService");
-const { createEmbedMessage } = require("../util/formatUtil");
+const {
+	createEmbedMessage,
+	getEmoji,
+	bold,
+	italic,
+} = require("../util/formatUtil");
 
 exports.run = async (client, message, args) => {
 	const inventoryService = new InventoryService(client.database);
-	const potchi =
-		client.emojis.cache.find((emoji) => emoji.id === "potchi") || "";
-	const isDM = message.type === "dm";
+	const isDM = message.channel.type === "dm";
 
 	const sendMsg = async (m) => {
 		if (isDM) {
@@ -23,20 +26,24 @@ exports.run = async (client, message, args) => {
 		const items = await itemService.getAll();
 
 		const fields = inv
+			.filter(({ quantity }) => quantity > 0)
 			.map((ii) => ({
 				...ii,
 				item: items[ii.itemId],
 			}))
-			.map(({ item: { name }, quantity }) => ({
-				name: name,
-				value: `${potchi} ${quantity}`,
-			}));
+			.map(
+				({ item: { name, icon }, quantity }) =>
+					`${icon ? `${getEmoji(client, icon)}  ` : ""}${italic(name)} ─ ${bold(
+						(+quantity).toLocaleString("en")
+					)}`
+			)
+			.join("\n\n");
 		const embed = createEmbedMessage()
-			.setAuthor(
-				"Inventory",
+			.setAuthor(`Inventory ni ${message.author.username}`.toUpperCase())
+			.setThumbnail(
 				"https://cdn.discordapp.com/attachments/765047137473265714/774519411612581898/chest.jpg"
 			)
-			.addFields(fields);
+			.setDescription(fields);
 		await sendMsg(embed);
 	}
 	if (!isDM) {
