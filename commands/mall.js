@@ -12,6 +12,7 @@ const CommonGift = require("../helper/items/CommonGift");
 const RareGift = require("../helper/items/RareGift");
 const EpicGift = require("../helper/items/EpicGift");
 const LegendaryGift = require("../helper/items/LegendaryGift");
+const MallItems = require("../helper/items/MallItems");
 
 const { MALL_HIDE_PRICE } = process.env;
 
@@ -32,14 +33,7 @@ const giftContents = (client) => ({
 	},
 });
 
-const kk = Object.values(giftKeys);
-
-const items = (client) => [
-	new CommonGift(client, 200, 20),
-	new RareGift(client, 350, 10),
-	new EpicGift(client, 700, 5),
-	new LegendaryGift(client, 1000, 2),
-];
+const items = MallItems;
 
 exports.run = (client, message, args) => {
 	const [arg1, arg2, ...restArgs] = args;
@@ -72,7 +66,7 @@ exports.run = (client, message, args) => {
 			HIDE_PRICE ? "" : `Type ${process.env.BOT_PREFIX}pabili <item ID> to buy`
 		);
 
-	if (isDescribe) {
+	if (isDescribe && !HIDE_PRICE) {
 		const match = items(client).find(
 			({ value }) => value === restArgs.join(" ").toLowerCase()
 		);
