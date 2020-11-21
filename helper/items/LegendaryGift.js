@@ -23,7 +23,7 @@ module.exports = class LegendaryGift extends Gift {
 		);
 	}
 
-	open(message) {
-		message.channel.reply(`${this.name} opened!`);
+	async open(message) {
+		await message.reply(`${this.name} opened!`);
 	}
 };

@@ -24,6 +24,6 @@ module.exports = class rareGift extends Gift {
 	}
 
 	open(message) {
-		message.channel.reply(`${this.name} opened!`);
+		message.reply(`${this.name} opened!`);
 	}
 };

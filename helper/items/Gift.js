@@ -1,3 +1,5 @@
+const InventoryService = require("../../services/InventoryService");
+const { mentionAuthor, bold } = require("../../util/formatUtil");
 module.exports = class Gift {
 	constructor(
 		client,
@@ -21,9 +23,37 @@ module.exports = class Gift {
 		this.description = description;
 		this.contents = contents;
 		this.url = url;
+		this.inventoryService = new InventoryService(client.database);
 	}
 
-	open(message) {
-		message.channel.reply(`${this.name} opened!`);
+	async validate(message, item) {
+		if (item && item.quantity > 0) return true;
+
+		return false;
+	}
+	async postValidate(message, item) {}
+
+	async _removeFromInventory(userId, item) {
+		await this.inventoryService.updateRef(userId, `/${item.itemId}`, {
+			quantity: +item.quantity - 1,
+		});
+	}
+
+	async open(message) {
+		const inventory = await this.inventoryService.getByUserId(
+			message.author.id
+		);
+		const item = inventory[this.id];
+		if (await this.validate(message, item)) {
+			await message.reply(`Opening ${bold(`${this.icon} ${this.name}`)}...`);
+			await this.postValidate(message, item);
+			await this._removeFromInventory(message.author.id, item);
+		} else {
+			await message.reply(
+				`${mentionAuthor(message)}, you do not have any ${
+					this.name
+				} in your inventory`
+			);
+		}
 	}
 };

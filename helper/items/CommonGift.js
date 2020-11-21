@@ -21,7 +21,7 @@ module.exports = class EpicGift extends Gift {
 		);
 	}
 
-	open(message) {
-		message.channel.reply(`${this.name} opened!`);
+	async postValidate(message) {
+		await message.reply(`${this.name} opened! mamiii`);
 	}
 };

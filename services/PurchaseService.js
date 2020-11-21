@@ -1,6 +1,6 @@
-class InventoryService {
+module.exports = class PurchaseService {
 	database = null;
-	baseRef = "inventory";
+	baseRef = "purchase";
 	constructor(database) {
 		this.database = database;
 	}
@@ -34,6 +34,4 @@ class InventoryService {
 	async updateRef(userId, ref, payload) {
 		await this.database.ref(`${this.baseRef}/${userId}/${ref}`).update(payload);
 	}
-}
-
-module.exports = InventoryService;
+};
