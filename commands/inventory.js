@@ -18,6 +18,7 @@ exports.run = async (client, message, args) => {
 			await message.author.send(m);
 		}
 	};
+	console.log(message.author.id);
 	const inv = await inventoryService.getByUserId(message.author.id);
 	if (!inv) {
 		await sendMsg("WALANG LAMAN INVENTORY MO MAMIII");
@@ -32,10 +33,10 @@ exports.run = async (client, message, args) => {
 				item: items[ii.itemId],
 			}))
 			.map(
-				({ item: { name, icon }, quantity }) =>
-					`${icon ? `${getEmoji(client, icon)}  ` : ""}${italic(name)} ─ ${bold(
-						(+quantity).toLocaleString("en")
-					)}`
+				({ item: { name, icon, native }, quantity }) =>
+					`${icon ? `${native ? icon : getEmoji(client, icon)}  ` : ""}${italic(
+						name
+					)} ─ ${bold((+quantity).toLocaleString("en"))}`
 			)
 			.join("\n\n");
 		const embed = createEmbedMessage()

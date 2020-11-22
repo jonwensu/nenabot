@@ -47,11 +47,16 @@ exports.run = async (client, message, args) => {
 				+quantity + +purchaseCount > +gift.limit
 					? +gift.limit - +purchaseCount
 					: quantity;
+			const vowels = ["a", "e", "i", "o", "u"];
 			const inventory = await inventoryService.getByUserId(message.author.id);
-			const normalizeQty = (qty) => (qty === 1 ? "a" : qty);
+			console.log(typeof inventory);
+			const article = (name) =>
+				vowels.includes(name.toLowerCase()[0]) ? "an" : "a";
+			const normalizeQty = (qty, name) => (qty === 1 ? article(name) : qty);
 			const pluralize = (qty, word) => (qty === 1 ? word : `${word}s`);
-			const potchi = inventory
+			const potchi = Object.keys(inventory)
 				.filter((i) => i)
+				.map((k) => inventory[k])
 				.find((item) => item.itemId === POTCHI_ID);
 
 			const total = +gift.price * +quantity;
@@ -60,7 +65,8 @@ exports.run = async (client, message, args) => {
 			const canAfford = remaining >= 0;
 
 			spiel = `${mentionAuthor(message)}, you bought ${normalizeQty(
-				quantity
+				quantity,
+				gift.name
 			)} ${pluralize(
 				quantity,
 				gift.name

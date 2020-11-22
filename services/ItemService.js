@@ -10,6 +10,13 @@ class ItemService {
 		return result.val();
 	}
 
+	async getById(id) {
+		const result = await this.database
+			.ref(`${this.baseRef}/${id}`)
+			.once("value");
+		return result.val();
+	}
+
 	async save(userId, item) {
 		await this.database.ref(`${this.baseRef}/${userId}`).set(item);
 		return item;

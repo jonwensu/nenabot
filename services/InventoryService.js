@@ -34,6 +34,10 @@ class InventoryService {
 	async updateRef(userId, ref, payload) {
 		await this.database.ref(`${this.baseRef}/${userId}/${ref}`).update(payload);
 	}
+
+	async saveRef(userId, payload) {
+		await this.database.ref(`${this.baseRef}/${userId}`).update(payload);
+	}
 }
 
 module.exports = InventoryService;
