@@ -1,7 +1,14 @@
 const Discord = require("discord.js");
 
-const { bold, mentionAuthor, doRoll, pick, shuffle } = require("../util/formatUtil");
+const {
+	bold,
+	mentionAuthor,
+	doRoll,
+	pick,
+	shuffle,
+} = require("../util/formatUtil");
 
+const { run: runRegalo } = require("./pamasko");
 
 const items = [
 	{
@@ -253,28 +260,32 @@ exports.run = (client, message, args) => {
 		.setFooter(`Type ${process.env.BOT_PREFIX}pabili <item> to buy`);
 
 	if (order) {
-		const match = items.find(
-			({ value }) =>
-				value.toLocaleLowerCase() === order.trim().toLocaleLowerCase()
-		);
+		if (order.startsWith("regalo")) {
+			const [rest1, ...regaloArgs] = restArgs;
+			runRegalo(client, message, [arg1, arg2, ...regaloArgs]);
+		} else {
+			const match = items.find(
+				({ value }) =>
+					value.toLocaleLowerCase() === order.trim().toLocaleLowerCase()
+			);
 
-		if (match) {
-			const roll = doRoll(100);
+			if (match) {
+				const roll = doRoll(100);
 
-			const {
-				success: { rate, spiel: ss },
-				fail,
-			} = match;
+				const {
+					success: { rate, spiel: ss },
+					fail,
+				} = match;
 
-			const success = roll < rate;
+				const success = roll < rate;
 
-			console.log("rate", rate, "roll", roll, "success", success);
+				console.log("rate", rate, "roll", roll, "success", success);
 
-			spiel = success ? ss(message, client) : fail(message);
+				spiel = success ? ss(message, client) : fail(message);
+			}
+			message.channel.send(spiel);
 		}
 	}
-
-	message.channel.send(spiel);
 };
 
 exports.help =

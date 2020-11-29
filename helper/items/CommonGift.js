@@ -1,10 +1,20 @@
 const Gift = require("./Gift");
 
-const { getEmoji, bold } = require("../../util/formatUtil");
-const giftKeys = require("../../util/GiftKeys");
+const {
+	getEmoji,
+	bold,
+	rateRoll,
+	doRollRange,
+} = require("../../util/formatUtil");
+const {
+	keys: giftKeys,
+	contents: giftContents,
+} = require("../../util/GiftKeys");
 
-module.exports = class EpicGift extends Gift {
-	constructor(client, price, limit) {
+module.exports = class CommonGift extends (
+	Gift
+) {
+	constructor(client, price, limit, rates) {
 		super(
 			client,
 			3,
@@ -17,11 +27,24 @@ module.exports = class EpicGift extends Gift {
 				`Potchi`
 			)} para may chance na dumami.`,
 			[giftKeys.potchi],
-			"https://cdn.discordapp.com/attachments/765047137473265714/777852464447619073/1-gift-common.png"
+			"https://cdn.discordapp.com/attachments/765047137473265714/777852464447619073/1-gift-common.png",
+			rates
 		);
 	}
 
-	open(message) {
-		message.channel.reply(`${this.name} opened!`);
+	async postValidate(message, item) {
+		const success = this.rates[giftKeys.potchi];
+
+		const amount = this.potchiRoll(success);
+		await message.channel.send(
+			`${this.openSpiel(message)}\n\nIt contained ${bold(
+				`${amount} ${getEmoji(this.client, "potchi")} Potchis!`
+			)}`
+		);
+
+		return {
+			itemId: giftContents(this.client)[giftKeys.potchi].id,
+			quantity: amount,
+		};
 	}
 };
