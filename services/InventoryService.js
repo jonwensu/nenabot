@@ -10,10 +10,15 @@ class InventoryService {
 		return result.val();
 	}
 
-	async getByUserId(userId) {
+	async getByUserId(userId, ref = false) {
 		const result = await this.database
 			.ref(`${this.baseRef}/${userId}`)
 			.once("value");
+
+		if (ref) {
+			return result;
+		}
+
 		return result.val();
 	}
 
@@ -24,6 +29,14 @@ class InventoryService {
 
 	async update(payload) {
 		await this.database.ref(this.baseRef).update(payload);
+	}
+
+	async updateRef(userId, ref, payload) {
+		await this.database.ref(`${this.baseRef}/${userId}/${ref}`).update(payload);
+	}
+
+	async saveRef(userId, payload) {
+		await this.database.ref(`${this.baseRef}/${userId}`).update(payload);
 	}
 }
 

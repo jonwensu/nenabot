@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const giftKeys = require("../util/GiftKeys");
+const { keys: giftKeys, contents: giftContents } = require("../util/GiftKeys");
 
 const {
 	bold,
@@ -14,24 +14,9 @@ const EpicGift = require("../helper/items/EpicGift");
 const LegendaryGift = require("../helper/items/LegendaryGift");
 const MallItems = require("../helper/items/MallItems");
 
-const { MALL_HIDE_PRICE } = process.env;
+const { MALL_HIDE_PRICE, MASK_NITRO } = process.env;
 
 const HIDE_PRICE = MALL_HIDE_PRICE === "true";
-
-const giftContents = (client) => ({
-	[giftKeys.potchi]: {
-		name: "Potchi",
-		icon: getEmoji(client, "potchi"),
-	},
-	[giftKeys.potchicket]: {
-		name: "Potchicket",
-		icon: "🎟️",
-	},
-	[giftKeys.nitro]: {
-		name: "Discord Nitro",
-		icon: getEmoji(client, "pnitro"),
-	},
-});
 
 const items = MallItems;
 
@@ -63,17 +48,19 @@ exports.run = (client, message, args) => {
 			}))
 		)
 		.setFooter(
-			HIDE_PRICE ? "" : `Type ${process.env.BOT_PREFIX}pabili <item ID> to buy`
+			HIDE_PRICE
+				? ""
+				: `Type ${process.env.BOT_PREFIX}pabili regalo <item ID> to buy`
 		);
 
-	if (isDescribe && !HIDE_PRICE) {
+	if (isDescribe) {
 		const match = items(client).find(
 			({ value }) => value === restArgs.join(" ").toLowerCase()
 		);
 
 		if (match) {
 			const arr = [
-				`${bold(`Price: ${match.price}`)}`,
+				`${bold(`Price: ${HIDE_PRICE ? "???" : match.price}`)}`,
 				italic(match.description),
 				`${bold(
 					`Possible Contents: ${match.contents

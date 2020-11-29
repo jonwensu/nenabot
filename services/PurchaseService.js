@@ -1,6 +1,6 @@
-class ItemService {
+module.exports = class PurchaseService {
 	database = null;
-	baseRef = "items";
+	baseRef = "purchase";
 	constructor(database) {
 		this.database = database;
 	}
@@ -10,10 +10,15 @@ class ItemService {
 		return result.val();
 	}
 
-	async getById(id) {
+	async getByUserId(userId, ref = false) {
 		const result = await this.database
-			.ref(`${this.baseRef}/${id}`)
+			.ref(`${this.baseRef}/${userId}`)
 			.once("value");
+
+		if (ref) {
+			return result;
+		}
+
 		return result.val();
 	}
 
@@ -25,6 +30,8 @@ class ItemService {
 	async update(payload) {
 		await this.database.ref(this.baseRef).update(payload);
 	}
-}
 
-module.exports = ItemService;
+	async updateRef(userId, ref, payload) {
+		await this.database.ref(`${this.baseRef}/${userId}/${ref}`).update(payload);
+	}
+};
