@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
 	if (!choice || !gift) {
 		showGifts(client, message, args);
 	} else {
-		let quantity = !isNaN(args[3]) ? args[3] || 1 : 1;
+		let quantity = !isNaN(args[3]) ? Math.abs(args[3]) || 1 : 1;
 
 		const inventoryService = new InventoryService(client.database);
 		const purchaseService = new PurchaseService(client.database);
@@ -49,10 +49,10 @@ exports.run = async (client, message, args) => {
 					: quantity;
 			const vowels = ["a", "e", "i", "o", "u"];
 			const inventory = await inventoryService.getByUserId(message.author.id);
-			console.log(typeof inventory);
 			const article = (name) =>
 				vowels.includes(name.toLowerCase()[0]) ? "an" : "a";
-			const normalizeQty = (qty, name) => (qty === 1 ? article(name) : qty);
+			const normalizeQty = (qty, name) =>
+				qty === 1 ? article(name) : qty.toLocaleString("en");
 			const pluralize = (qty, word) => (qty === 1 ? word : `${word}s`);
 			const potchi = Object.keys(inventory)
 				.filter((i) => i)
@@ -67,10 +67,9 @@ exports.run = async (client, message, args) => {
 			spiel = `${mentionAuthor(message)}, you bought ${normalizeQty(
 				quantity,
 				gift.name
-			)} ${pluralize(
-				quantity,
-				gift.name
-			)} for ${total} Potchis. You now have ${remaining} ${pluralize(
+			)} ${pluralize(quantity, gift.name)} for ${total.toLocaleString(
+				"en"
+			)} Potchis. You now have ${remaining.toLocaleString("en")} ${pluralize(
 				remaining,
 				"Potchi"
 			)} left.`;
@@ -98,7 +97,6 @@ exports.run = async (client, message, args) => {
 					},
 				};
 
-				inventory;
 				await inventoryService.updateRef(
 					message.author.id,
 					"",

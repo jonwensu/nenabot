@@ -48,7 +48,9 @@ exports.run = (client, message, args) => {
 			}))
 		)
 		.setFooter(
-			HIDE_PRICE ? "" : `Type ${process.env.BOT_PREFIX}regalo <item ID> to buy`
+			HIDE_PRICE
+				? ""
+				: `Type ${process.env.BOT_PREFIX}pabili regalo <item ID> to buy`
 		);
 
 	if (isDescribe) {

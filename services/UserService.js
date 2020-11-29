@@ -10,6 +10,13 @@ class UserService {
 		return result.val();
 	}
 
+	async getByUserId(id) {
+		const result = await this.database
+			.ref(`${this.baseRef}/${id}`)
+			.once("value");
+		return result.val();
+	}
+
 	async save(user) {
 		await this.database.ref(`${this.baseRef}/${user.id}`).set(user);
 		return user;

@@ -46,7 +46,7 @@ module.exports = class RareGift extends (
 		const roll = () => {
 			const givePotchicket = pick(pool) === giftKeys.potchicket;
 			let giftKey = giftKeys.potchi;
-			let quantity = this.potchiRoll(80);
+			let quantity = this.potchiRoll(70);
 			let qtyMessage = `${quantity} ${getEmoji(this.client, "potchi")} Potchis`;
 
 			if (givePotchicket) {

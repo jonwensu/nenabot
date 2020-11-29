@@ -16,13 +16,13 @@ module.exports = {
 			icon: getEmoji(client, "potchi"),
 		},
 		[keys.potchicket]: {
-			id: 7,
+			id: 2,
 			name: "Potchicket",
 			icon: "🎟️",
 		},
 		[keys.nitro]: {
 			id: 8,
-			name: maskNitro ? "Potato" : "Discord Nitro",
+			name: maskNitro ? "Potato" : "Discord Nitro Classic Voucher",
 			icon: maskNitro ? "🥔" : getEmoji(client, "pnitro"),
 		},
 	}),

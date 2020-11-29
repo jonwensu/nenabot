@@ -8,7 +8,7 @@ const {
 	shuffle,
 } = require("../util/formatUtil");
 
-const { run: runRegalo } = require("./regalo");
+const { run: runRegalo } = require("./pamasko");
 
 const items = [
 	{

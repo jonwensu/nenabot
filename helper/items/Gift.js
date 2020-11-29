@@ -5,7 +5,6 @@ const {
 	rateRoll,
 	doRollRange,
 } = require("../../util/formatUtil");
-const { contents } = require("../../util/GiftKeys");
 module.exports = class Gift {
 	constructor(
 		client,

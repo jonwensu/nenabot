@@ -26,7 +26,8 @@ exports.run = async (client, message, args) => {
 		const itemService = new ItemService(client.database);
 		const items = await itemService.getAll();
 
-		const fields = inv
+		const fields = Object.keys(inv)
+			.map((k) => inv[k])
 			.filter(({ quantity }) => quantity > 0)
 			.map((ii) => ({
 				...ii,
