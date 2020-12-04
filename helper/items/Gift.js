@@ -1,3 +1,4 @@
+const axios = require("axios");
 const InventoryService = require("../../services/InventoryService");
 const {
 	mentionAuthor,
@@ -5,6 +6,12 @@ const {
 	rateRoll,
 	doRollRange,
 } = require("../../util/formatUtil");
+
+const POTCHI_IMG =
+	"https://cdn.discordapp.com/attachments/765047137473265714/772071733200551946/74ab611596f6c285e8b5f89e74203c9d.png";
+
+const { NITRO_WEBHOOK } = process.env;
+
 module.exports = class Gift {
 	constructor(
 		client,
@@ -31,6 +38,23 @@ module.exports = class Gift {
 		this.url = url;
 		this.rates = rates;
 		this.inventoryService = new InventoryService(client.database);
+	}
+
+	async broadcast(title, description, webhook = NITRO_WEBHOOK) {
+		await axios.post(webhook, {
+			embeds: [
+				{
+					description,
+					color: 15402245,
+					thumbnail: { url: this.url },
+					author: {
+						name: title,
+						icon_url:
+							"https://cdn.discordapp.com/attachments/765047137473265714/784401434681671680/nitro_classic_logo.png",
+					},
+				},
+			],
+		});
 	}
 
 	getRatePool(map) {

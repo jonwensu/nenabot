@@ -1,6 +1,12 @@
 const Gift = require("./Gift");
 
-const { getEmoji, bold, pick, doRoll } = require("../../util/formatUtil");
+const {
+	getEmoji,
+	bold,
+	pick,
+	doRoll,
+	mentionAuthor,
+} = require("../../util/formatUtil");
 const {
 	keys: giftKeys,
 	contents: giftContents,
@@ -83,6 +89,15 @@ module.exports = class EpicGift extends (
 				quantity = 1;
 				const match = giftContents(this.client)[giftKey];
 				qtyMessage = `a ${match.icon} ${match.name}`;
+				const partyFrog = getEmoji(this.client, "partyFrog");
+				await this.broadcast(
+					`NITRO OBTAINED!!!`,
+					`${mentionAuthor(message)} opened a ${bold(
+						this.name
+					)} and it contained a ${bold(
+						`1 Month Discord Nitro Classic Subscription`
+					)}! ${partyFrog} ${partyFrog} ${partyFrog}`
+				);
 				await nitroService.assignGift(availableNitro, message.author.id);
 			}
 			return {
