@@ -1,6 +1,12 @@
 const Gift = require("./Gift");
 
-const { getEmoji, bold, pick, doRollRange } = require("../../util/formatUtil");
+const {
+	getEmoji,
+	bold,
+	pick,
+	doRollRange,
+	mentionAuthor,
+} = require("../../util/formatUtil");
 const {
 	keys: giftKeys,
 	contents: giftContents,
@@ -81,6 +87,15 @@ module.exports = class LegendaryGift extends (
 				const match = giftContents(this.client)[giftKey];
 				qtyMessage = `a ${match.icon} ${match.name}`;
 				await nitroService.assignGift(availableNitro, message.author.id);
+				const partyFrog = getEmoji(this.client, "partyFrog");
+				await this.broadcast(
+					`NITRO OBTAINED!!!`,
+					`${mentionAuthor(message)} opened a ${bold(
+						this.name
+					)} and it contained a ${bold(
+						`1 Month Discord Nitro Classic Subscription`
+					)}! ${partyFrog} ${partyFrog} ${partyFrog}`
+				);
 			}
 			return {
 				itemId: giftContents(this.client)[giftKey].id,
@@ -90,6 +105,10 @@ module.exports = class LegendaryGift extends (
 		};
 
 		const result = await roll();
+
+		if (giftContents(this.client)[giftKeys.nitro].id === result.itemId) {
+		}
+
 		await message.channel.send(
 			`${this.openSpiel(message)}\n\nIt contained ${bold(result.qtyMessage)}`
 		);

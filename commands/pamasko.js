@@ -11,10 +11,10 @@ const { bold, mentionAuthor } = require("../util/formatUtil");
 const { ALLOW_BUY_GIFT, OWNER_ID } = process.env;
 
 exports.run = async (client, message, args) => {
-	const canBuyGify =
+	const canBuyGift =
 		ALLOW_BUY_GIFT === "true" || OWNER_ID === message.author.id;
 
-	if (canBuyGify) {
+	if (canBuyGift) {
 		const choice = args[2];
 		const shop = gifts(client);
 

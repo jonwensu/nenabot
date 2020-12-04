@@ -15,8 +15,6 @@ exports.run = async (client, message, args) => {
 
 	let response = "";
 
-	console.log(qty);
-
 	if (allArgsAvailable) {
 		const validQuantity = !isNaN(qty)
 			? qty > 0
