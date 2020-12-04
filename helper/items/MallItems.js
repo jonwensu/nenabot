@@ -5,7 +5,7 @@ const LegendaryGift = require("./LegendaryGift");
 const { keys: giftKeys } = require("../../util/GiftKeys");
 
 module.exports = (client) => [
-	new CommonGift(client, 200, 20, { [giftKeys.potchi]: 90 }),
+	new CommonGift(client, 200, 20, { [giftKeys.potchi]: 75 }),
 	new RareGift(client, 350, 10, { [giftKeys.potchicket]: 5 }),
 	new EpicGift(client, 700, 5, {
 		[giftKeys.potchicket]: 10,
