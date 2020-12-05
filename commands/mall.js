@@ -18,7 +18,10 @@ const { MALL_HIDE_PRICE, MASK_NITRO } = process.env;
 
 const HIDE_PRICE = MALL_HIDE_PRICE === "true";
 
-const items = MallItems;
+const items = (client) =>
+	Object.keys(MallItems(client))
+		.filter((m) => !MallItems(client)[m].hidden)
+		.map((m) => MallItems(client)[m]);
 
 exports.run = (client, message, args) => {
 	const [arg1, arg2, ...restArgs] = args;
