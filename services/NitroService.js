@@ -50,17 +50,29 @@ class NitroService {
 	async getOwnedNitro(scope, userId) {
 		const all = await this.getAll();
 		const pool = all[scope];
-		const ownedNitro = Object.keys(nitroPool).find(
-			(k) => nitroPool[k].owner === userId
-		);
+		const ownedNitro =
+			userId !== undefined &&
+			Object.keys(pool).find((k) => pool[k].owner === userId);
 
-		return ownedNitro !== undefined ? pool[ownedNitro] : undefined;
+		return ownedNitro !== undefined
+			? { ...pool[ownedNitro], index: ownedNitro }
+			: undefined;
+	}
+
+	async claimLinks(userId, payload, scope = "gift") {
+		const match = await this.getOwnedNitro(scope, userId);
+
+		if (match) {
+			await this.database
+				.ref(`${this.baseRef}/${scope}/${match.index}/links`)
+				.update(payload);
+		}
 	}
 
 	async getAvailableNitro(scope) {
 		const all = await this.getAll();
 		const pool = all[scope];
-		const availableNitro = Object.keys(pool).find((k) => !nitroPool[k].owner);
+		const availableNitro = Object.keys(pool).find((k) => !pool[k].owner);
 
 		return availableNitro !== undefined ? pool[availableNitro] : undefined;
 	}
