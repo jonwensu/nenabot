@@ -13,7 +13,7 @@ module.exports = (client) => [
 		[giftKeys.nitro]: 5,
 	}),
 	new LegendaryGift(client, 1000, 2, {
-		[giftKeys.nitro]: 25,
+		[giftKeys.nitro]: 10,
 	}),
 	new Nitro(client),
 ];
