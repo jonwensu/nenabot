@@ -117,23 +117,26 @@ module.exports = class Gift {
 		if (await this.validate(message, item)) {
 			const content = await this.postValidate(message, item);
 			await this._removeFromInventory(message.author.id, item);
-			const qty = (content && content.itemId && content.quantity) || 0;
 
-			const entry = inventory[content.itemId] || {
-				itemId: content.itemId,
-				quantity: 0,
-			};
+			if (content) {
+				const qty = (content && content.itemId && content.quantity) || 0;
 
-			const itemUpdate = {
-				...entry,
-				quantity: +entry.quantity + +qty,
-			};
+				const entry = inventory[content.itemId] || {
+					itemId: content.itemId,
+					quantity: 0,
+				};
 
-			await this.inventoryService.updateRef(
-				message.author.id,
-				`/${content.itemId}`,
-				itemUpdate
-			);
+				const itemUpdate = {
+					...entry,
+					quantity: +entry.quantity + +qty,
+				};
+
+				await this.inventoryService.updateRef(
+					message.author.id,
+					`/${content.itemId}`,
+					itemUpdate
+				);
+			}
 		} else {
 			await message.channel.send(
 				`${mentionAuthor(message)}, you do not have any ${
