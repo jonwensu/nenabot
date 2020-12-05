@@ -19,7 +19,8 @@ module.exports = class Nitro extends (
 			`1 Month Classic Nitro Subscription`,
 			[],
 			"https://cdn.discordapp.com/attachments/765047137473265714/784401434681671680/nitro_classic_logo.png",
-			{}
+			{},
+			true
 		);
 	}
 

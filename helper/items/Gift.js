@@ -24,7 +24,8 @@ module.exports = class Gift {
 		description,
 		contents,
 		url,
-		rates
+		rates,
+		hidden
 	) {
 		this.client = client;
 		this.id = id;
@@ -38,6 +39,7 @@ module.exports = class Gift {
 		this.url = url;
 		this.rates = rates;
 		this.inventoryService = new InventoryService(client.database);
+		this.hidden = hidden;
 	}
 
 	async broadcast(title, description, webhook = NITRO_WEBHOOK) {
