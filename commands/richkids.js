@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
 		)
 		.join("\n");
 
-	const notIncluded = !top.map(({ id }) => id).includes(message.author.id);
+	const notIncluded = !top.some(({ id }) => id).includes(message.author.id);
 
 	if (notIncluded) {
 		const ids = allSorted.map(({ id }) => id);

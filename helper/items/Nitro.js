@@ -29,28 +29,21 @@ module.exports = class Nitro extends (
 		const nitroService = new NitroService(this.client.database);
 		const inventory = await inventoryService.getByUserId(message.author.id);
 		const ownedNitro = await nitroService.getOwnedNitro(
-			"gift",
+			"GIFT",
 			message.author.id
 		);
-
 		const nitro = inventory[this.id] || { itemId: this.id, quantity: 0 };
-		const hasNitro = nitro.quantity > 0 && ownedNitro;
+		const hasNitro = nitro.quantity > 0 && ownedNitro.length > 0;
 
 		if (hasNitro) {
 			await message.react(this.icon);
-			const links = Object.keys(ownedNitro.links)
-				.filter((l) => !ownedNitro.links[l].claimed)
-				.map((k) => ownedNitro.links[k]);
+			const unclaimedNitro = ownedNitro.filter((n) => !n.claimed);
 
-			if (links.length > 0) {
-				await nitroService.claimLinks(
-					message.author.id,
-					links.map((l) => ({ ...l, claimed: true }))
-				);
+			if (unclaimedNitro.length > 0) {
+				const nitro = unclaimedNitro[0];
+				await nitroService.claimLinks(message.author.id, nitro.id);
 				await message.author.send(
-					`Congrats MAMIII!!! Claim mo kaagad to bago mag expire!\n\n${links
-						.map((k) => k.link)
-						.join(`\n\n`)}`
+					`Congrats MAMIII!!! Claim mo kaagad to bago mag expire!\n\n${nitro.link}`
 				);
 				if (message.channel.type !== "dm") {
 					await message.reply("DM sent MAMIII!");
