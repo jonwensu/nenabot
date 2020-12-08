@@ -9,18 +9,28 @@ const {
 } = require("../util/formatUtil");
 
 exports.run = async (client, message, args) => {
-	const mention = message.mentions.members.first();
+	const isDm = message.channel.type === "dm";
+	const mention = !isDm && message.mentions.members.first();
 
 	const target = mention ? mention.user : message.author;
 	const targetId = target.id;
+	const isOwnInventory = targetId === message.author.id;
 	const inventoryService = new InventoryService(client.database);
 
 	const inv = await inventoryService.getByUserId(targetId);
+
+	const sendMsg = async (m, spiel, dm) => {
+		if (dm) {
+			await m.author.send(spiel);
+		} else {
+			await m.reply(spiel);
+		}
+	};
 	if (!inv) {
 		const mm = mention
 			? `NI ${mentionAuthor({ author: { id: targetId } })}`
 			: "MO";
-		await message.reply(`WALANG LAMAN INVENTORY ${mm} MAMIII`);
+		await sendMsg(`WALANG LAMAN INVENTORY ${mm} MAMIII`, isOwnInventory);
 	} else {
 		const itemService = new ItemService(client.database);
 		const items = await itemService.getAll();
@@ -45,7 +55,11 @@ exports.run = async (client, message, args) => {
 				"https://cdn.discordapp.com/attachments/765047137473265714/774519411612581898/chest.jpg"
 			)
 			.setDescription(fields);
-		await message.reply(embed);
+		await sendMsg(message, embed, isOwnInventory);
+	}
+
+	if (isOwnInventory && !isDm) {
+		message.delete();
 	}
 };
 
