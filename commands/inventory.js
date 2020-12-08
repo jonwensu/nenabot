@@ -5,23 +5,22 @@ const {
 	getEmoji,
 	bold,
 	italic,
+	mentionAuthor,
 } = require("../util/formatUtil");
 
 exports.run = async (client, message, args) => {
-	const inventoryService = new InventoryService(client.database);
-	const isDM = message.channel.type === "dm";
+	const mention = message.mentions.members.first();
 
-	const sendMsg = async (m) => {
-		if (isDM) {
-			await message.reply(m);
-		} else {
-			await message.author.send(m);
-		}
-	};
-	console.log(message.author.id);
-	const inv = await inventoryService.getByUserId(message.author.id);
+	const target = mention ? mention.user : message.author;
+	const targetId = target.id;
+	const inventoryService = new InventoryService(client.database);
+
+	const inv = await inventoryService.getByUserId(targetId);
 	if (!inv) {
-		await sendMsg("WALANG LAMAN INVENTORY MO MAMIII");
+		const mm = mention
+			? `NI ${mentionAuthor({ author: { id: targetId } })}`
+			: "MO";
+		await message.reply(`WALANG LAMAN INVENTORY ${mm} MAMIII`);
 	} else {
 		const itemService = new ItemService(client.database);
 		const items = await itemService.getAll();
@@ -41,15 +40,12 @@ exports.run = async (client, message, args) => {
 			)
 			.join("\n\n");
 		const embed = createEmbedMessage()
-			.setAuthor(`Inventory ni ${message.author.username}`.toUpperCase())
+			.setAuthor(`Inventory ni ${target.username}`.toUpperCase())
 			.setThumbnail(
 				"https://cdn.discordapp.com/attachments/765047137473265714/774519411612581898/chest.jpg"
 			)
 			.setDescription(fields);
-		await sendMsg(embed);
-	}
-	if (!isDM) {
-		message.delete();
+		await message.reply(embed);
 	}
 };
 
