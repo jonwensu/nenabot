@@ -47,7 +47,7 @@ class NitroService {
 		const all = await this.getAll();
 		const pool = Object.values(all).filter(({ source }) => source === scope);
 		const ownedNitro = Object.values(pool).filter((n) => n.owner === userId);
-
+		console.log("ownedNitro", ownedNitro);
 		return ownedNitro;
 	}
 
