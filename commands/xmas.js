@@ -3,13 +3,33 @@ const {
 	italic,
 	bold,
 	pick,
+	mentionAuthor,
 } = require("../util/formatUtil");
 
 const thumbnail =
 	"https://cdn.discordapp.com/attachments/765047137473265714/791554092144263209/xmastree.gif";
 
 exports.run = (client, message, args) => {
-	const day = args[2] || 12;
+	const day = args[2] || pick(Object.keys(days));
+
+	if (+day > 12) {
+		message.channel.send(
+			`${italic(
+				`${bold(`12`)} DAYS OF CHRISTMAS`
+			)} YUNG TITLE NG KANTA MAMIII ${mentionAuthor(message)} BAKIT SUMOBRA?`
+		);
+		return;
+	}
+
+	if (+day < 1 || isNaN(day)) {
+		message.channel.send(
+			`EWAN KO SAYO MAMIII ${mentionAuthor(
+				message
+			)}. IKAW NALANG KUMANTA. 1-12 LANG KASI LAGAY MO!`
+		);
+		return;
+	}
+
 	const { title, lyrics } = nthDayOfXmas(day);
 	const response = createEmbedMessage(pick(["#E6EC0E", "#f01519", "#39cc19"]))
 		.setTitle(title)
@@ -61,5 +81,5 @@ function nthDayOfXmas(day) {
 }
 
 function nth(n) {
-	return ["st", "nd", "rd"][((((n + 90) % 100) - 10) % 10) - 1] || "th";
+	return ["st", "nd", "rd"][((((+n + 90) % 100) - 10) % 10) - 1] || "th";
 }
