@@ -54,10 +54,10 @@ exports.run = async (client, message, args) => {
 			[message.author.id]: sourceInventoryUpdate,
 		};
 
-		const inviteUrl = "https://discord.gg/uCp8M9kx";
+		const inviteUrl = "https://discord.gg/udzJtYEdcc";
 		response = `${mentionAuthor(
 			message
-		)}, you have been invited to a very exclusive server. Please acctept the invitation to see what's in store for you over there.\n\n${inviteUrl}`;
+		)}, you have been invited to a very exclusive server. Please accept the invitation to see what's in store for you over there.\n\n${inviteUrl}`;
 
 		await inventoryService.update(updates);
 	} else {
