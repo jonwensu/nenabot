@@ -59,7 +59,6 @@ fs.readdir("./events", (err, files) => {
 client.login(process.env.BOT_TOKEN).then(() => {
 	client.database = database;
 	console.log("logged In");
-	cron.execute(client);
 });
 
 // Catch and report discord.js errors.
