@@ -1,4 +1,4 @@
-import { Snowflake, User } from 'discord.js';
+import { Snowflake } from 'discord.js';
 import { EmojiGameParticipant, EmojiGameQuestion } from '../../typings';
 
 export default class Game {
