@@ -2,7 +2,7 @@ import { CommandoClient } from 'discord.js-commando';
 import path from 'path';
 import { ConfigType } from './typings';
 
-import config from './config.json';
+import config from './config';
 import CommandGroup from './enums/CommandGroup';
 
 const client = new CommandoClient({

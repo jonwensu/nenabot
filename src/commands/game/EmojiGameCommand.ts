@@ -1,6 +1,6 @@
 import { Message, MessageEmbed, User } from 'discord.js';
 import Game from '../../helper/emoji/Game';
-import * as rootConfig from '../../config.json';
+import rootConfig from '../../config';
 
 // const init = () => {
 // 	database.ref('/emojis/movie').on('value', (snapshot) => {
