@@ -1,4 +1,11 @@
-import { GuildEmoji, Message, MessageEmbed, Snowflake, User } from 'discord.js';
+import {
+	Client,
+	GuildEmoji,
+	Message,
+	MessageEmbed,
+	Snowflake,
+	User,
+} from 'discord.js';
 import { CommandoClient, CommandoMessage } from 'discord.js-commando';
 
 export function bold(str: string): string {
@@ -53,7 +60,7 @@ export function repeatMessage<T>(
 }
 
 export function getEmoji(
-	client: CommandoClient,
+	client: CommandoClient | Client,
 	emojiName: string,
 	fallback: string | GuildEmoji = ''
 ): GuildEmoji | string {
