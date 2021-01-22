@@ -17,7 +17,7 @@ export default class HeheCommand extends BaseCommand {
 	}
 
 	async run(message: CommandoMessage): AsyncCommandRunType {
-		await message.react(this.getEmoji('hehe', '😈'));
+		await message.react(this.getEmoji('heheBoye', '😈'));
 
 		return null;
 	}
