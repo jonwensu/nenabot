@@ -56,10 +56,10 @@ const emojiIndex: EmojiIndex = {
 	char: {
 		aliases: ['charot', 'charaught', 'charotera', 'chararat'],
 		regex: [
-			/^[\w\d]*[\s]*char[\s]+[\w\d]*$/,
-			/^[\w\d]*[\s]*char[\s]*$/,
-			/^char[\s]+[\w\d\s]*lang[\s]+[\w\d.?!]*$/,
-			/char[\s]+[\w\d\s.?!]*lang[.?!]*/,
+			/^[\w\d]*[\s]*char[\s]+[\w\d]*$/i,
+			/^[\w\d]*[\s]*char[\s]*$/i,
+			/^char[\s]+[\w\d\s]*lan[\s]+[\w\d]*$/i,
+			/char[\s]+[\w\d\s]*lang[.?!]+[\s\w\d]*/i,
 		],
 		emojis: [char],
 	},
