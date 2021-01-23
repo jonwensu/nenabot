@@ -10,7 +10,7 @@ export default class IceCreamPaninda extends Paninda {
 
 	successSpiel(message: CommandoMessage): string {
 		const item = bold(this.name.toUpperCase());
-		const cry = getEmoji(message.client, 'maritesCry', ':cry:');
+		const cry = getEmoji(message.client, 'maritesCry', '😢');
 
 		const flavors = [
 			'VANILLA',

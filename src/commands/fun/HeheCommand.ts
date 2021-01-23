@@ -50,12 +50,17 @@ const emojiIndex: EmojiIndex = {
 		emojis: [nice],
 	},
 	420: {
-		aliases: ['420', 'sabog'],
+		aliases: ['420', 'sabog', 'shabu'],
 		emojis: [baked],
 	},
 	char: {
-		aliases: ['charot', 'charaught'],
-		regex: [/^[\w\d]*[\s]*char[\s]*$/, /^char[\s]+[\w\d\s]*lang$/],
+		aliases: ['charot', 'charaught', 'charotera', 'chararat'],
+		regex: [
+			/^[\w\d]*[\s]*char[\s]+[\w\d]*$/,
+			/^[\w\d]*[\s]*char[\s]*$/,
+			/^char[\s]+[\w\d\s]*lang[\s]+[\w\d.?!]*$/,
+			/char[\s]+[\w\d\s.?!]*lang[.?!]*/,
+		],
 		emojis: [char],
 	},
 };
@@ -86,7 +91,10 @@ export default class HeheCommand extends BaseCommand {
 	}
 
 	async run(message: CommandoMessage): AsyncCommandRunType {
-		const stripped = message.cleanContent.replace(/<[\w\d\s@:!]*>/, '');
+		const stripped = message.cleanContent.replace(
+			new RegExp(/<[\w\d\s@:!]*>/, 'gi'),
+			''
+		);
 
 		this.emojiMap = Object.keys(emojiIndex).reduce((prev, next: string) => {
 			const { aliases = [], emojis, regex = [] } = emojiIndex[next];
