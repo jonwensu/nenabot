@@ -1,12 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-	GuildEmoji,
-	Message,
-	MessageEmbed,
-	MessageEmbedOptions,
-} from 'discord.js';
+import { GuildEmoji, Message } from 'discord.js';
 import {
 	ArgumentCollectorResult,
 	Command,
@@ -14,15 +9,14 @@ import {
 } from 'discord.js-commando';
 import { getEmoji } from '../util/MessageUtil';
 
-export default class BaseCommand extends Command {
-	public run(
+export default abstract class BaseCommand extends Command {
+	public abstract run(
 		message: CommandoMessage,
 		args: string | object | string[],
 		fromPattern: boolean,
 		result?: ArgumentCollectorResult<object>
-	): Promise<Message | Message[] | null> | null {
-		throw new Error('Method not implemented.');
-	}
+	): Promise<Message | Message[] | null> | null;
+
 	getEmoji(
 		emojiName: string,
 		fallback: string | GuildEmoji = ''
