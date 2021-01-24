@@ -33,7 +33,6 @@ const charmeleon: EmojiPair = ['charmeleon', '🔥'];
 const emojiIndex: EmojiIndex = {
 	'69': {
 		aliases: [
-			'69',
 			'sixnine',
 			'sixty nine',
 			'sixty-nine',
@@ -42,6 +41,12 @@ const emojiIndex: EmojiIndex = {
 			'6ix9ine',
 		],
 		emojis: [hehe, nice],
+		regex: [
+			new RegExp(
+				`^(?!(${process.env.BOT_PREFIX})).*(?!(<[@!:][\\d\\w]*))69(?!([:\\w\\d]*>))`,
+				'i'
+			),
+		],
 	},
 	hehe: {
 		aliases: ['hehe'],
@@ -52,8 +57,14 @@ const emojiIndex: EmojiIndex = {
 		emojis: [nice],
 	},
 	420: {
-		aliases: ['420', 'sabog', 'shabu'],
+		aliases: ['sabog', 'shabu'],
 		emojis: [baked],
+		regex: [
+			new RegExp(
+				`^(?!(${process.env.BOT_PREFIX})).*(?!(<[@!:][\\d\\w]*))420(?!([:\\w\\d]*>))`,
+				'i'
+			),
+		],
 	},
 	char: {
 		aliases: [
@@ -65,7 +76,7 @@ const emojiIndex: EmojiIndex = {
 			'charmander',
 		],
 		regex: [
-			/((^[\s]*)|(^[\w\d\s]+[\s]+))char((ot(era)?)|aught|arat|s)?(([\s]+[\w\d\s]*)|([\s]*)$)(lang)?/i,
+			/((^[\s]*)|(^[\w\d\s]+[\s]+))char(((ot|awt)(era)?)|aught|arat|s)?(([\s]+[\w\d\s]*)|([\s]*)$)(lang)?/i,
 		],
 		emojis: [char],
 	},
