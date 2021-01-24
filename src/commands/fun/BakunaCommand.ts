@@ -45,7 +45,7 @@ const bakunas: Bakuna = {
 		},
 		coordinates: logoCoords,
 	},
-	redHorse: {
+	redhorse: {
 		url:
 			'https://cdn.discordapp.com/attachments/765047137473265714/802747985032642610/redhorse.png',
 		dimensions: {
@@ -133,6 +133,15 @@ const bakunas: Bakuna = {
 		dimensions: {
 			width: WIDTH * 0.1,
 			height: HEIGHT * 0.14,
+		},
+		coordinates: logoCoords,
+	},
+	melkti: {
+		url:
+			'https://cdn.discordapp.com/attachments/765047137473265714/802791676867379251/melkti.png',
+		dimensions: {
+			width: WIDTH * 0.1,
+			height: HEIGHT * 0.13,
 		},
 		coordinates: logoCoords,
 	},

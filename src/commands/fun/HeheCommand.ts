@@ -27,6 +27,8 @@ const hehe: EmojiPair = ['heheBoye', '😈'];
 const nice: EmojiPair = ['ab_nice', '👌'];
 const baked: EmojiPair = ['pepeBaked', '👌'];
 const char: EmojiPair = ['char', '🔥'];
+const charizard: EmojiPair = ['charizard', '🔥'];
+const charmeleon: EmojiPair = ['charmeleon', '🔥'];
 
 const emojiIndex: EmojiIndex = {
 	'69': {
@@ -54,14 +56,27 @@ const emojiIndex: EmojiIndex = {
 		emojis: [baked],
 	},
 	char: {
-		aliases: ['charot', 'charaught', 'charotera', 'chararat'],
+		aliases: [
+			'charot',
+			'charaught',
+			'charotera',
+			'chararat',
+			'charawt',
+			'charmander',
+		],
 		regex: [
-			/^[\w\d]*[\s]*char[\s]+[\w\d]*$/i,
-			/[\w\d]*[\s]+char[\s]*[\w\d]*/i,
-			/char[\s]+[\w\d\s]*lang[\s]+[\w\d]*/i,
-			/char[\s]+[\w\d\s]*lang[.?!]+[\s\w\d]*/i,
+			/((^[\s]*)|(^[\w\d\s]+[\s]+))char((ot(era)?)|aught|arat|s)?(([\s]+[\w\d\s]*)|([\s]*)$)(lang)?/i,
 		],
 		emojis: [char],
+	},
+	charmeleon: {
+		aliases: ['charmeleon'],
+		emojis: [charmeleon],
+	},
+	charizard: {
+		aliases: ['charizard'],
+		regex: [/cha(r|w)iza(r|w)d/i],
+		emojis: [charizard],
 	},
 };
 
