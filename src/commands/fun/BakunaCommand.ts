@@ -145,6 +145,15 @@ const bakunas: Bakuna = {
 		},
 		coordinates: logoCoords,
 	},
+	bj: {
+		url:
+			'https://cdn.discordapp.com/attachments/765047137473265714/802914160357933116/bukojuan-1.png',
+		dimensions: {
+			width: WIDTH * 0.13,
+			height: HEIGHT * 0.1,
+		},
+		coordinates: logoCoords,
+	},
 };
 
 export default class BakunaCommand extends Command {
