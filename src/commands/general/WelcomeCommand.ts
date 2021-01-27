@@ -1,8 +1,8 @@
 import { CommandoClient, CommandoMessage } from 'discord.js-commando';
 import CommandGroup from '../../enums/CommandGroup';
 import AnnounceCommand from '../../common/AnnounceCommand';
-import { repeatMessage } from '../../util/MessageUtil';
-import { CommandRunType } from '../../typings';
+import { mentionUser, repeatMessage } from '../../util/MessageUtil';
+import { CommandRunType, SingleUserArgType } from '../../typings';
 
 export default class WelcomeCommand extends AnnounceCommand {
 	constructor(client: CommandoClient) {
@@ -12,14 +12,25 @@ export default class WelcomeCommand extends AnnounceCommand {
 			aliases: ['wc'],
 			group: CommandGroup.GENERAL.name,
 			description: 'Welcome new kapotchis',
+			args: [
+				{
+					key: 'target',
+					prompt: 'SINO IWEWELCOME MO MAMIII?',
+					type: 'user',
+					default: '',
+				},
+			],
 		});
 	}
 
-	run(message: CommandoMessage): CommandRunType {
+	run(message: CommandoMessage, { target }: SingleUserArgType): CommandRunType {
 		const potchi = this.getEmoji('potchi');
-		const spiel = `WELCOME MGA KAPOTCHIII!!! SANA DI KAYO MAGING INACTIVE!!! ${repeatMessage(
-			potchi
-		)}`.trim();
+		let spiel = target
+			? `WELCOME KAPOTCHIII ${mentionUser(
+					target
+			  )}!!! SANA DI KA MAGING INACTIVE!!!`
+			: `WELCOME MGA KAPOTCHIII!!! SANA DI KAYO MAGING INACTIVE!!!`;
+		spiel += `\n${repeatMessage(potchi)}`;
 
 		this.embed.description = spiel;
 
