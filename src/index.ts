@@ -1,9 +1,11 @@
 import { CommandoClient } from 'discord.js-commando';
 import path from 'path';
+import DeleteHistoryService from './services/DeleteHistoryService';
 import { ConfigType } from './typings';
 
 import config from './config';
 import CommandGroup from './enums/CommandGroup';
+import { Message } from 'discord.js';
 
 const client = new CommandoClient({
 	...config,
@@ -31,5 +33,9 @@ client.once('ready', () => {
 });
 
 client.on('error', console.error);
+
+client.on('messageDelete', async (message: Message) => {
+	await DeleteHistoryService.add(message);
+});
 
 client.login(config.token);
