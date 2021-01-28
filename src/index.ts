@@ -34,8 +34,9 @@ client.once('ready', () => {
 
 client.on('error', console.error);
 
-client.on('messageDelete', async (message: Message) => {
-	await DeleteHistoryService.add(message);
-});
+client.on(
+	'messageDelete',
+	async (message: Message) => await DeleteHistoryService.add(message)
+);
 
 client.login(config.token);

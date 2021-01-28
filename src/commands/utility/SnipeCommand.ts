@@ -1,6 +1,6 @@
-import { GuildEmoji, GuildMember, Message } from 'discord.js';
+import { GuildMember, Message } from 'discord.js';
 import { CommandoClient, CommandoMessage } from 'discord.js-commando';
-import { AsyncCommandRunType, PotchiArgType } from '../../typings';
+import { AsyncCommandRunType } from '../../typings';
 import BaseCommand from '../../common/BaseCommand';
 import CommandGroup from '../../enums/CommandGroup';
 import DeleteHistoryService from '../../services/DeleteHistoryService';
