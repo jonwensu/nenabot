@@ -49,12 +49,10 @@ export default class SnipeCommand extends BaseCommand {
 				);
 				return Promise.all(messages);
 			}
-
-			return message.say(
-				createEmbedMessage('#0099ff').setAuthor("There's nothing to snipe!")
-			);
 		}
 
-		return null;
+		return message.say(
+			createEmbedMessage('#0099ff').setAuthor("There's nothing to snipe!")
+		);
 	}
 }
