@@ -4,11 +4,12 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "npm-run-all build serve",
+		"start": "npm-run-all build copy-files serve",
 		"build": "npm run clean && tsc",
 		"serve": "node dist/index.js",
 		"clean": "rimraf dist",
-		"dev": "nodemon src/index.ts"
+		"dev": "nodemon src/index.ts",
+		"copy-files": "cp -r ./src/assets ./dist"
 	},
 	"keywords": [],
 	"author": "wensu",
