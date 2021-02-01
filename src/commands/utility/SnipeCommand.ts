@@ -15,7 +15,7 @@ export default class SnipeCommand extends BaseCommand {
 		super(client, {
 			name: 'snipe',
 			memberName: 'snipe',
-			aliases: ['sn'],
+			aliases: ['sn', 'landi'],
 			group: CommandGroup.UTILITY.name,
 			description: 'Show recently deleted message',
 		});
@@ -23,11 +23,13 @@ export default class SnipeCommand extends BaseCommand {
 
 	async run(message: CommandoMessage): AsyncCommandRunType {
 		const response = await DeleteHistoryService.get(message.channel.id);
-		const expiration = 60;
+		const expiration = 180;
 
 		if (response) {
 			const { authorID } = (response as unknown) as Response;
-			const member = (await message.guild.member(authorID)) as GuildMember;
+			const member = (await message.guild.member(
+				authorID
+			)) as GuildMember;
 
 			const startTime = new Date(response.createdTimestamp);
 			const endTime = new Date();
