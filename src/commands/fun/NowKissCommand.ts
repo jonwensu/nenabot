@@ -136,7 +136,7 @@ export default class NowKissCommand extends BaseCommand {
 		message: CommandoMessage,
 		{ img, firstTarget, secondTarget }: ArgType
 	): AsyncCommandRunType {
-		const template = KISS_IMG[img];
+		const template = KISS_IMG[img.toLowerCase()];
 		const { image, avatar } = template;
 
 		const canvas = createCanvas(image.width, image.height);
