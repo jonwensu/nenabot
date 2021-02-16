@@ -34,18 +34,14 @@ export default class KurotCommand extends BaseCommand {
 		message: CommandoMessage,
 		{ target }: ArgType
 	): AsyncCommandRunType {
-		const isNsfw = (message.channel as TextChannel).nsfw;
+		const isNsfw =
+			message.channel.type === 'dm' ||
+			(message.channel as TextChannel).nsfw;
 
 		const template = pick(
 			[BoyKurotTemplate, GirlKurotTemplate, NsfwKurotTemplate]
 				.map((x) => new x(target))
-				.filter((x) =>
-					message.channel.type === 'dm'
-						? true
-						: isNsfw
-						? x.nsfw
-						: !x.nsfw
-				)
+				.filter((x) => (isNsfw ? true : !x.nsfw))
 		);
 		const attachment = await template.render(message);
 
