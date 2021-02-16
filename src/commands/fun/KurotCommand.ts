@@ -43,8 +43,11 @@ export default class KurotCommand extends BaseCommand {
 				.map((x) => new x(target))
 				.filter((x) => (isNsfw ? true : !x.nsfw))
 		);
-		const attachment = await template.render(message);
 
-		return await message.channel.send(attachment);
+		const prefix = template.nsfw ? 'SPOILER_' : '';
+		const attachment = await template.render(message);
+		return await message.channel.send(
+			attachment.setName(`${prefix}kurot.png`)
+		);
 	}
 }
