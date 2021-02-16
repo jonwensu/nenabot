@@ -1,40 +1,15 @@
-import { User } from 'discord.js';
+import { TextChannel, User } from 'discord.js';
 import { CommandoClient, CommandoMessage } from 'discord.js-commando';
 import BaseCommand from '../../common/BaseCommand';
 import CommandGroup from '../../enums/CommandGroup';
 import BoyKurotTemplate from '../../helper/kurot/BoyKurotTemplate';
 import GirlKurotTemplate from '../../helper/kurot/GirlKurotTemplate';
+import NsfwKurotTemplate from '../../helper/kurot/NsfwKurotTemplate';
 import { AsyncCommandRunType } from '../../typings';
 import { pick } from '../../util/RngUtil';
 
 type ArgType = {
 	target: User;
-};
-
-type Dimensions = {
-	width: number;
-	height: number;
-};
-
-type Coordinates = {
-	x: number;
-	y: number;
-};
-
-type TargetType = {
-	dimensions: Dimensions;
-	coordinates: (w: number, h: number) => Coordinates;
-};
-
-type KissType = {
-	[key: string]: {
-		image: Dimensions & {
-			url: string;
-		};
-		avatar: {
-			target: TargetType;
-		};
-	};
 };
 
 export default class KurotCommand extends BaseCommand {
@@ -44,6 +19,7 @@ export default class KurotCommand extends BaseCommand {
 			memberName: 'kurot',
 			group: CommandGroup.FUN.name,
 			description: 'Kurutin ang kapotchi',
+			aliases: ['pinch', 'pisil'],
 			args: [
 				{
 					key: 'target',
@@ -58,9 +34,20 @@ export default class KurotCommand extends BaseCommand {
 		message: CommandoMessage,
 		{ target }: ArgType
 	): AsyncCommandRunType {
-		const template = pick([BoyKurotTemplate, GirlKurotTemplate]);
-		// const attachment = await new GirlKurotTemplate(target).render(message);
-		const attachment = await new template(target).render(message);
+		const isNsfw = (message.channel as TextChannel).nsfw;
+
+		const template = pick(
+			[BoyKurotTemplate, GirlKurotTemplate, NsfwKurotTemplate]
+				.map((x) => new x(target))
+				.filter((x) =>
+					message.channel.type === 'dm'
+						? true
+						: isNsfw
+						? x.nsfw
+						: !x.nsfw
+				)
+		);
+		const attachment = await template.render(message);
 
 		return await message.channel.send(attachment);
 	}
