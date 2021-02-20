@@ -1,6 +1,7 @@
 import { createCanvas, loadImage } from 'canvas';
 import { MessageAttachment } from 'discord.js';
-import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
+import { CommandoClient, CommandoMessage } from 'discord.js-commando';
+import BaseCommand from '../../common/BaseCommand';
 import CommandGroup from '../../enums/CommandGroup';
 import { AsyncCommandRunType, SingleUserArgType } from '../../typings';
 
@@ -14,7 +15,7 @@ const AVATAR_H = 100;
 const BATOKEE_W = 90;
 const BATOKEE_H = 90;
 
-export default class BatokCommand extends Command {
+export default class BatokCommand extends BaseCommand {
 	constructor(client: CommandoClient) {
 		super(client, {
 			name: 'batok',
@@ -76,7 +77,10 @@ export default class BatokCommand extends Command {
 			BATOKEE_H
 		);
 
-		const attachment = new MessageAttachment(canvas.toBuffer(), 'batok.png');
+		const attachment = new MessageAttachment(
+			canvas.toBuffer(),
+			'batok.png'
+		);
 
 		return await message.channel.send(attachment);
 	}

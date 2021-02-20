@@ -1,6 +1,10 @@
 import { createCanvas, loadImage } from 'canvas';
 import { MessageAttachment } from 'discord.js';
-import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
+import {
+	Command as BaseCommand,
+	CommandoClient,
+	CommandoMessage,
+} from 'discord.js-commando';
 import CommandGroup from '../../enums/CommandGroup';
 import { AsyncCommandRunType, SingleUserArgType } from '../../typings';
 
@@ -24,7 +28,7 @@ const sabunotee = (w: number, h: number) => ({
 	y: h * 0.75,
 });
 
-export default class SabunotCommand extends Command {
+export default class SabunotCommand extends BaseCommand {
 	constructor(client: CommandoClient) {
 		super(client, {
 			name: 'sabunot',
@@ -82,7 +86,10 @@ export default class SabunotCommand extends Command {
 
 		ctx.restore();
 
-		const attachment = new MessageAttachment(canvas.toBuffer(), 'sabunot.png');
+		const attachment = new MessageAttachment(
+			canvas.toBuffer(),
+			'sabunot.png'
+		);
 
 		return await message.channel.send(attachment);
 	}
