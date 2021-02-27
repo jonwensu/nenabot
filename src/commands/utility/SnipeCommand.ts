@@ -35,7 +35,7 @@ export default class SnipeCommand extends BaseCommand {
 				usages: 1,
 				duration: 10,
 			},
-			aliases: ['sn', 'landi'],
+			aliases: ['sn', 'landi', 'brrrt'],
 			group: CommandGroup.UTILITY.name,
 			description: 'Show recently deleted message',
 		});
