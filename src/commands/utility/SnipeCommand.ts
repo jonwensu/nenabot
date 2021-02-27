@@ -14,6 +14,8 @@ type ArgType = {
 	size: number;
 };
 
+const MAX_HISTORY = 5;
+
 export default class SnipeCommand extends BaseCommand {
 	constructor(client: CommandoClient) {
 		super(client, {
@@ -25,9 +27,14 @@ export default class SnipeCommand extends BaseCommand {
 					prompt: 'ILAN BABARELEN MO MAMIII?',
 					type: 'integer',
 					default: 1,
-					parse: (value: number) => (value > 5 ? 5 : value),
+					parse: (value: number) =>
+						value > MAX_HISTORY ? MAX_HISTORY : value,
 				},
 			],
+			throttling: {
+				usages: 1,
+				duration: 10,
+			},
 			aliases: ['sn', 'landi'],
 			group: CommandGroup.UTILITY.name,
 			description: 'Show recently deleted message',
