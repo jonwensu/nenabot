@@ -1,26 +1,29 @@
 import BaseService from '../common/BaseService';
-import { Message } from 'discord.js';
+import { Message, PartialMessage } from 'discord.js';
 
 interface ChannelMessage {
 	[key: string]: string;
 }
 
 class DeleteHistoryService extends BaseService {
-	async get(channelId: string): Promise<Message | null> {
+	async get(channelId: string, size = 1): Promise<Message[]> {
 		try {
-			const result = await this.httpClient.get(`/message/delete/${channelId}`);
+			const result = await this.httpClient.get(
+				`/message/delete/${channelId}`,
+				{ params: { size } }
+			);
 
-			const {
-				data: { message },
-			} = result;
+			const { data } = result;
 
-			return message;
+			return Object.values(data);
 		} catch {
-			return null;
+			return [];
 		}
 	}
 
-	async add(message: Message): Promise<ChannelMessage | null> {
+	async add(
+		message: Message | PartialMessage
+	): Promise<ChannelMessage | null> {
 		try {
 			const {
 				channel: { id: channelId },

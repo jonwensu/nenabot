@@ -23,13 +23,18 @@ export default class WelcomeCommand extends AnnounceCommand {
 		});
 	}
 
-	run(message: CommandoMessage, { target }: SingleUserArgType): CommandRunType {
+	run(
+		message: CommandoMessage,
+		{ target }: SingleUserArgType
+	): CommandRunType {
 		const potchi = this.getEmoji('potchi');
-		let spiel = target
-			? `WELCOME KAPOTCHIII ${mentionUser(
-					target
-			  )}!!! SANA DI KA MAGING INACTIVE!!!`
-			: `WELCOME MGA KAPOTCHIII!!! SANA DI KAYO MAGING INACTIVE!!!`;
+		let spiel = `WELCOME MGA KAPOTCHIII!!! SANA DI KAYO MAGING INACTIVE!!!`;
+
+		if (target) {
+			spiel = `WELCOME KAPOTCHIII ${mentionUser(
+				target
+			)}!!! SANA DI KA MAGING INACTIVE!!!`;
+		}
 		spiel += `\n${repeatMessage(potchi)}`;
 
 		this.embed.description = spiel;

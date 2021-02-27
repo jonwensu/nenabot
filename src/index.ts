@@ -5,7 +5,7 @@ import { ConfigType } from './typings';
 
 import config from './config';
 import CommandGroup from './enums/CommandGroup';
-import { Message } from 'discord.js';
+import { Message, PartialMessage } from 'discord.js';
 
 const client = new CommandoClient({
 	...config,
@@ -36,7 +36,8 @@ client.on('error', console.error);
 
 client.on(
 	'messageDelete',
-	async (message: Message) => await DeleteHistoryService.add(message)
+	async (message: Message | PartialMessage) =>
+		await DeleteHistoryService.add(message)
 );
 
 client.login(config.token);

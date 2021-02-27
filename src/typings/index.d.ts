@@ -102,3 +102,16 @@ interface EmojiGameConfigType {
 interface EmojiGameArgType {
 	rounds: number;
 }
+
+enum WeaponAttribute {
+	DAMAGE = 'damage',
+	CRIT_CHANCE = 'critChance',
+	HEALTH = 'health',
+	ARMOR = 'armor',
+	EVASION = 'evasion',
+	CRIT_DAMAGE = critDamage,
+}
+
+export interface WeaponUpgrades {
+	[key in WeaponAttribute]: number | (() => number);
+}
