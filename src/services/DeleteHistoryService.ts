@@ -6,19 +6,18 @@ interface ChannelMessage {
 }
 
 class DeleteHistoryService extends BaseService {
-	async get(channelId: string): Promise<Message | null> {
+	async get(channelId: string, size = 1): Promise<Message[]> {
 		try {
 			const result = await this.httpClient.get(
-				`/message/delete/${channelId}`
+				`/message/delete/${channelId}`,
+				{ params: { size } }
 			);
 
-			const {
-				data: { message },
-			} = result;
+			const { data } = result;
 
-			return message;
+			return Object.values(data);
 		} catch {
-			return null;
+			return [];
 		}
 	}
 
