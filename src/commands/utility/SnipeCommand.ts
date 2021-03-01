@@ -33,7 +33,7 @@ export default class SnipeCommand extends BaseCommand {
 			],
 			throttling: {
 				usages: 1,
-				duration: 10,
+				duration: 30,
 			},
 			aliases: ['sn', 'landi', 'brrrt'],
 			group: CommandGroup.UTILITY.name,
