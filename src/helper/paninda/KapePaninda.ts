@@ -3,15 +3,14 @@ import { bold, mentionAuthor } from '../../util/MessageUtil';
 import { doRoll, pick, rateRoll } from '../../util/RngUtil';
 import Paninda from './Paninda';
 
-const sauceRate = 60;
-const toppingsRate = 50;
-
 export default class KapePaninda extends Paninda {
+	sauceRate = 60;
+	toppingsRate = 50;
 	constructor() {
-		super('Kape :coffee:', ['kape', 'coffee'], 150, 90);
+		super('Kape ☕', ['kape', 'coffee'], 150, 90);
 	}
 
-	successSpiel(message: CommandoMessage): string {
+	successSpiel = (message: CommandoMessage): string => {
 		const size = ['TALL', 'GRANDE', 'VENTI'].map(bold);
 
 		const base = [
@@ -24,7 +23,7 @@ export default class KapePaninda extends Paninda {
 
 		let syrup = '';
 
-		if (rateRoll(sauceRate)) {
+		if (rateRoll(this.sauceRate)) {
 			const sauce = [
 				'VANILLA SYRUP',
 				'HAZELNUT SYRUP',
@@ -39,7 +38,7 @@ export default class KapePaninda extends Paninda {
 
 		let toppings = '';
 
-		if (rateRoll(toppingsRate)) {
+		if (rateRoll(this.toppingsRate)) {
 			const t = ['BREAD CRUMBS', 'POTCHIS', 'ADOBO FLAKES', 'PASAS'].map(
 				bold
 			);
@@ -53,14 +52,14 @@ export default class KapePaninda extends Paninda {
 		return `One ${pick(size)} ${pick(
 			base
 		)}${addonSpiel} for ${mentionAuthor(message)} at the counter please.`;
-	}
+	};
 
-	failSpiel(message: CommandoMessage): string {
+	failSpiel = (message: CommandoMessage): string => {
 		const spiels = [
 			`${bold(`DECAF COFFEE`)}  kasi ${bold(`DECAF`)}inili`,
 			`${bold(`MATAPANG NA KAPE`)} pero di parin siya kayang ipaglaban`,
 		];
 
 		return `Bumili si ${mentionAuthor(message)} ng ${pick(spiels)}.`;
-	}
+	};
 }

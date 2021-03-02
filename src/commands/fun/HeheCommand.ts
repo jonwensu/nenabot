@@ -57,7 +57,7 @@ const emojiIndex: EmojiIndex = {
 		emojis: [nice],
 	},
 	420: {
-		aliases: ['sabog', 'shabu'],
+		aliases: ['sabog'],
 		emojis: [baked],
 		regex: [
 			new RegExp(
