@@ -3,9 +3,10 @@ import { bold, mentionAuthor } from '../../util/MessageUtil';
 import { doRoll, pick, rateRoll } from '../../util/RngUtil';
 import Paninda from './Paninda';
 
+const sauceRate = 60;
+const toppingsRate = 50;
+
 export default class KapePaninda extends Paninda {
-	sauceRate = 60;
-	toppingsRate = 50;
 	constructor() {
 		super('Kape :coffee:', ['kape', 'coffee'], 150, 90);
 	}
@@ -23,7 +24,7 @@ export default class KapePaninda extends Paninda {
 
 		let syrup = '';
 
-		if (rateRoll(this.sauceRate)) {
+		if (rateRoll(sauceRate)) {
 			const sauce = [
 				'VANILLA SYRUP',
 				'HAZELNUT SYRUP',
@@ -38,8 +39,10 @@ export default class KapePaninda extends Paninda {
 
 		let toppings = '';
 
-		if (rateRoll(this.toppingsRate)) {
-			const t = ['BREAD CRUMBS', 'POTCHIS', 'ADOBO FLAKES', 'PASAS'].map(bold);
+		if (rateRoll(toppingsRate)) {
+			const t = ['BREAD CRUMBS', 'POTCHIS', 'ADOBO FLAKES', 'PASAS'].map(
+				bold
+			);
 
 			toppings = `${pick(t)} on top`;
 		}
@@ -47,9 +50,9 @@ export default class KapePaninda extends Paninda {
 		const addons = [syrup, toppings].filter((t) => t.trim()).join(' and ');
 		const addonSpiel = addons ? ` with ${addons}` : '';
 
-		return `One ${pick(size)} ${pick(base)}${addonSpiel} for ${mentionAuthor(
-			message
-		)} at the counter please.`;
+		return `One ${pick(size)} ${pick(
+			base
+		)}${addonSpiel} for ${mentionAuthor(message)} at the counter please.`;
 	}
 
 	failSpiel(message: CommandoMessage): string {
