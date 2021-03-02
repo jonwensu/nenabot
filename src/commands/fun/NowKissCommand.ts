@@ -79,23 +79,23 @@ const KISS_IMG: KissType = {
 		avatar: {
 			target1: {
 				dimensions: {
-					width: 60,
-					height: 60,
+					width: 70,
+					height: 70,
 				},
 				coordinates: (w, h) => ({
-					x: w * 0.645,
-					y: h * 0.52,
+					x: w * 0.64,
+					y: h * 0.5,
 				}),
 			},
 			target2: {
 				dimensions: {
-					width: 65,
-					height: 65,
+					width: 85,
+					height: 85,
 				},
 				coordinates: function (w, h) {
 					return {
-						x: w * 0.73,
-						y: h * 0.58,
+						x: w * 0.72,
+						y: h * 0.57,
 					};
 				},
 			},
@@ -159,6 +159,36 @@ export default class NowKissCommand extends BaseCommand {
 		);
 
 		ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+		const { x: t1x, y: t1y } = target1Coords;
+		const { x: t2x, y: t2y } = target2Coords;
+		const {
+			target1: {
+				dimensions: { width: t1Width, height: t1Height },
+			},
+			target2: {
+				dimensions: { width: t2Width, height: t2Height },
+			},
+		} = avatar;
+		ctx.arc(
+			t1x + t1Width * 0.5,
+			t1y + t1Height * 0.5,
+			t1Width * 0.5,
+			0,
+			Math.PI * 2,
+			true
+		);
+		ctx.arc(
+			t2x + t2Width * 0.5,
+			t2y + t2Height * 0.5,
+			t2Width * 0.5,
+			0,
+			Math.PI * 2,
+			true
+		);
+		ctx.closePath();
+		ctx.clip();
+
 		ctx.drawImage(
 			firstTargetAvatar,
 			target1Coords.x,
