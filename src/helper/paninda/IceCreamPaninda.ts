@@ -5,10 +5,10 @@ import Paninda from './Paninda';
 
 export default class IceCreamPaninda extends Paninda {
 	constructor() {
-		super('Ice Cream :ice_cream:', ['ice cream', 'sorbetes'], 20, 90);
+		super('Ice Cream 🍨', ['ice cream', 'sorbetes'], 20, 90);
 	}
 
-	successSpiel(message: CommandoMessage): string {
+	successSpiel = (message: CommandoMessage): string => {
 		const item = bold(this.name.toUpperCase());
 		const cry = getEmoji(message.client, 'maritesCry', '😢');
 
@@ -36,13 +36,15 @@ export default class IceCreamPaninda extends Paninda {
 				),
 		];
 
-		return `Bumili si ${mentionAuthor(message)} ng ${item} ${pick(adlibs)}.`;
-	}
+		return `Bumili si ${mentionAuthor(message)} ng ${item} ${pick(
+			adlibs
+		)}.`;
+	};
 
-	failSpiel(message: CommandoMessage): string {
+	failSpiel = (message: CommandoMessage): string => {
 		const cry = getEmoji(message.client, 'pepeHands', ':cry:');
 		return `Bumili si ${mentionAuthor(message)} ng ${bold(
-			this.name
+			this.name.toUpperCase()
 		)} pero nung binuksan, ${bold(`ISDA`)} ang laman ${cry}`;
-	}
+	};
 }

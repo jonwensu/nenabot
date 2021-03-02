@@ -5,10 +5,10 @@ import Paninda from './Paninda';
 
 export default class PiattosPaninda extends Paninda {
 	constructor() {
-		super('Piattos :large_orange_diamond:', ['piattos'], 10, 90);
+		super('Piattos 🔶', ['piattos'], 10, 90);
 	}
 
-	successSpiel(message: CommandoMessage): string {
+	successSpiel = (message: CommandoMessage): string => {
 		const flavors = [
 			'CHEESE',
 			'SOUR CREAM',
@@ -29,8 +29,8 @@ export default class PiattosPaninda extends Paninda {
 
 		const pero = pick(peros);
 
-		return `Bumili si ${mentionAuthor(message)} ng ${bold(`PIATTOS`)} na ${bold(
-			flavor
-		)} pero ${pero}.`;
-	}
+		return `Bumili si ${mentionAuthor(message)} ng ${bold(
+			this.name.toUpperCase()
+		)} na ${bold(flavor)} pero ${pero}.`;
+	};
 }

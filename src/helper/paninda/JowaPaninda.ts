@@ -5,15 +5,10 @@ import Paninda from './Paninda';
 
 export default class JowaPaninda extends Paninda {
 	constructor() {
-		super(
-			'Jowa :broken_heart:',
-			['jowa', 'forever', 'poreber', 'toyo'],
-			69,
-			60
-		);
+		super('Jowa 💔', ['jowa', 'forever', 'poreber', 'toyo'], 69, 60);
 	}
 
-	successSpiel(message: CommandoMessage): string {
+	successSpiel = (message: CommandoMessage): string => {
 		const sanas = [
 			'Sana all',
 			'Sana naman magtagal kayo',
@@ -25,16 +20,20 @@ export default class JowaPaninda extends Paninda {
 
 		const sana = pick(sanas);
 
-		return `Umorder si ${mentionAuthor(message)} ng ${bold(`JOWA`)}. ${sana}.`;
-	}
+		return `Umorder si ${mentionAuthor(message)} ng ${bold(
+			`JOWA`
+		)}. ${sana}.`;
+	};
 
-	failSpiel(message: CommandoMessage): string {
+	failSpiel = (message: CommandoMessage): string => {
 		const spiels = [
 			`DI MO AFFORD MAGKAJOWA MAMIII ${mentionAuthor(message)}`,
 			`EW MAMIII ${mentionAuthor(message)} WALANG JOWA`,
-			`IPON KA MUNA MAMIII ${mentionAuthor(message)} PARA MAY PAMBILI NG JOWA`,
+			`IPON KA MUNA MAMIII ${mentionAuthor(
+				message
+			)} PARA MAY PAMBILI NG JOWA`,
 		];
 
 		return pick(spiels);
-	}
+	};
 }

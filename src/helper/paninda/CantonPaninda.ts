@@ -6,14 +6,14 @@ import Paninda from './Paninda';
 export default class CantonPaninda extends Paninda {
 	constructor() {
 		super(
-			'Pancit Canton :ramen:',
+			'Pancit Canton 🍜',
 			['canton', 'pancit', 'pancit canton', 'migoreng', 'lucky me'],
 			666,
 			90
 		);
 	}
 
-	successSpiel(message: CommandoMessage): string {
+	successSpiel = (message: CommandoMessage): string => {
 		let extra = '';
 
 		const ing = ['NOODLES', 'SEASONING'];
@@ -30,5 +30,5 @@ export default class CantonPaninda extends Paninda {
 		return `Bumili si ${mentionAuthor(message)} ng ${bold(
 			`PANCIT CANTON`
 		)} inuna ang ${inuna}${extra}.`;
-	}
+	};
 }
