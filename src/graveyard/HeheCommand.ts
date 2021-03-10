@@ -1,8 +1,8 @@
 import { GuildEmoji } from 'discord.js';
 import { CommandoClient, CommandoMessage } from 'discord.js-commando';
-import BaseCommand from '../../common/BaseCommand';
-import CommandGroup from '../../enums/CommandGroup';
-import { AsyncCommandRunType } from '../../typings';
+import BaseCommand from '../common/BaseCommand';
+import CommandGroup from '../enums/CommandGroup';
+import { AsyncCommandRunType } from '../typings';
 
 type EmojiPair = [string, string];
 type EmojiIndexEntry = {
