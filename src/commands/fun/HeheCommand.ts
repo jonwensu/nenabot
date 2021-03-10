@@ -108,7 +108,7 @@ export default class HeheCommand extends BaseCommand {
 		super(client, {
 			name: 'hehe',
 			patterns: joined,
-			memberName: 'hehe',
+			memberName: 'reax',
 			aliases: ['hh'],
 			group: CommandGroup.FUN.name,
 			description: 'HEHE',
