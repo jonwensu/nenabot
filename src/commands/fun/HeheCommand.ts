@@ -106,7 +106,7 @@ export default class HeheCommand extends BaseCommand {
 	emojiMap: EmojiMap = {};
 	constructor(client: CommandoClient) {
 		super(client, {
-			name: 'hehe',
+			name: 'reax',
 			patterns: joined,
 			memberName: 'reax',
 			aliases: ['hh'],
