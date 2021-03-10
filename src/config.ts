@@ -13,12 +13,16 @@ const {
 	NEXT_QUESTION_DELAY = 0,
 	MAX_ROUNDS = 0,
 	API_BASE_URL,
+	DB_URL,
+	DB_NAME,
 } = process.env;
 
 export default {
 	commandPrefix: BOT_PREFIX,
 	owner: OWNER_ID,
 	token: BOT_TOKEN,
+	dbUrl: DB_URL || '',
+	dbName: DB_NAME || '',
 	activity: {
 		name: BOT_ACTIVITY_NAME,
 		type: BOT_ACTIVITY_TYPE,
