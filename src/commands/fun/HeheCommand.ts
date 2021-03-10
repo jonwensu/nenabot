@@ -107,12 +107,11 @@ export default class HeheCommand extends BaseCommand {
 	constructor(client: CommandoClient) {
 		super(client, {
 			name: 'hehe',
-			hidden: true,
 			patterns: joined,
 			memberName: 'hehe',
 			aliases: ['hh'],
 			group: CommandGroup.FUN.name,
-			description: 'React hehe whenever a message contains 69',
+			description: 'HEHE',
 		});
 	}
 
