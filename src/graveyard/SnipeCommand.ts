@@ -1,10 +1,10 @@
 import { GuildMember, Message } from 'discord.js';
 import { CommandoClient, CommandoMessage } from 'discord.js-commando';
-import { AsyncCommandRunType } from '../../typings';
-import BaseCommand from '../../common/BaseCommand';
-import CommandGroup from '../../enums/CommandGroup';
-import DeleteHistoryService from '../../services/DeleteHistoryService';
-import { createEmbedMessage } from '../../util/MessageUtil';
+import { AsyncCommandRunType } from '../typings';
+import BaseCommand from '../common/BaseCommand';
+import CommandGroup from '../enums/CommandGroup';
+import DeleteHistoryService from '../services/DeleteHistoryService';
+import { createEmbedMessage } from '../util/MessageUtil';
 
 type Response = {
 	[key: string]: string;
