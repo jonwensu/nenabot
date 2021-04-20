@@ -14,7 +14,8 @@ export default class AcadsCommand extends AnnounceCommand {
 				memberName: 'acads',
 				aliases: ['ac'],
 				group: CommandGroup.GENERAL.name,
-				description: 'Magpaalam sa mga kapotchi mo na mag acads ka muna',
+				description:
+					'Magpaalam sa mga kapotchi mo na mag acads ka muna',
 			},
 			{
 				title: spiel,

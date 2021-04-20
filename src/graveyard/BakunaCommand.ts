@@ -1,9 +1,9 @@
 import { createCanvas, loadImage } from 'canvas';
 import { Message, MessageAttachment } from 'discord.js';
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
-import CommandGroup from '../../enums/CommandGroup';
-import { AsyncCommandRunType, SingleUserArgType } from '../../typings';
-import { pick } from '../../util/RngUtil';
+import CommandGroup from '../enums/CommandGroup';
+import { AsyncCommandRunType, SingleUserArgType } from '../typings';
+import { pick } from '../util/RngUtil';
 
 const BAKUNA_IMG = `https://cdn.discordapp.com/attachments/765047137473265714/802569014785736704/vaccine.png`;
 const WIDTH = 1000;
@@ -211,7 +211,10 @@ export default class BakunaCommand extends Command {
 			bakunaDims.height
 		);
 
-		const attachment = new MessageAttachment(canvas.toBuffer(), 'bakuna.png');
+		const attachment = new MessageAttachment(
+			canvas.toBuffer(),
+			'bakuna.png'
+		);
 
 		return await message.channel.send(attachment);
 	}

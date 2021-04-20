@@ -1,12 +1,12 @@
 import { TextChannel, User } from 'discord.js';
 import { CommandoClient, CommandoMessage } from 'discord.js-commando';
-import BaseCommand from '../../common/BaseCommand';
-import CommandGroup from '../../enums/CommandGroup';
-import BoyKurotTemplate from '../../helper/kurot/BoyKurotTemplate';
-import GirlKurotTemplate from '../../helper/kurot/GirlKurotTemplate';
-import NsfwKurotTemplate from '../../helper/kurot/NsfwKurotTemplate';
-import { AsyncCommandRunType } from '../../typings';
-import { pick } from '../../util/RngUtil';
+import BaseCommand from '../common/BaseCommand';
+import CommandGroup from '../enums/CommandGroup';
+import BoyKurotTemplate from '../helper/kurot/BoyKurotTemplate';
+import GirlKurotTemplate from '../helper/kurot/GirlKurotTemplate';
+import NsfwKurotTemplate from '../helper/kurot/NsfwKurotTemplate';
+import { AsyncCommandRunType } from '../typings';
+import { pick } from '../util/RngUtil';
 
 type ArgType = {
 	target: User;

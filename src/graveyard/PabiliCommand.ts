@@ -1,16 +1,16 @@
 import { CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { MessageEmbed } from 'discord.js';
 
-import CantonPaninda from '../../helper/paninda/CantonPaninda';
-import JowaPaninda from '../../helper/paninda/JowaPaninda';
-import PiattosPaninda from '../../helper/paninda/PiattosPaninda';
-import ShabuPaninda from '../../helper/paninda/ShabuPaninda';
-import IceCreamPaninda from '../../helper/paninda/IceCreamPaninda';
-import KapePaninda from '../../helper/paninda/KapePaninda';
-import CommandGroup from '../../enums/CommandGroup';
-import { rateRoll } from '../../util/RngUtil';
-import { CommandRunType, PabiliArgType } from '../../typings';
-import BaseCommand from '../../common/BaseCommand';
+import CantonPaninda from '../helper/paninda/CantonPaninda';
+import JowaPaninda from '../helper/paninda/JowaPaninda';
+import PiattosPaninda from '../helper/paninda/PiattosPaninda';
+import ShabuPaninda from '../helper/paninda/ShabuPaninda';
+import IceCreamPaninda from '../helper/paninda/IceCreamPaninda';
+import KapePaninda from '../helper/paninda/KapePaninda';
+import CommandGroup from '../enums/CommandGroup';
+import { rateRoll } from '../util/RngUtil';
+import { CommandRunType, PabiliArgType } from '../typings';
+import BaseCommand from '../common/BaseCommand';
 
 const items = [
 	new ShabuPaninda(),
@@ -62,9 +62,12 @@ export default class PabiliCommand extends BaseCommand {
 			.setFooter(`Type ${this.client.commandPrefix}pabili <item> to buy`);
 
 		if (paninda) {
-			const removeSpaces = (str = '') => str.replace(/\s+/g, '').toLowerCase();
+			const removeSpaces = (str = '') =>
+				str.replace(/\s+/g, '').toLowerCase();
 			const match = items.find(({ aliases }) =>
-				aliases.some((alias) => removeSpaces(alias) === removeSpaces(paninda))
+				aliases.some(
+					(alias) => removeSpaces(alias) === removeSpaces(paninda)
+				)
 			);
 
 			if (match) {

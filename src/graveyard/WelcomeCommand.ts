@@ -1,8 +1,8 @@
 import { CommandoClient, CommandoMessage } from 'discord.js-commando';
-import CommandGroup from '../../enums/CommandGroup';
-import AnnounceCommand from '../../common/AnnounceCommand';
-import { mentionUser, repeatMessage } from '../../util/MessageUtil';
-import { CommandRunType, SingleUserArgType } from '../../typings';
+import AnnounceCommand from '../common/AnnounceCommand';
+import CommandGroup from '../enums/CommandGroup';
+import { CommandRunType, SingleUserArgType } from '../typings';
+import { mentionUser, repeatMessage } from '../util/MessageUtil';
 
 export default class WelcomeCommand extends AnnounceCommand {
 	constructor(client: CommandoClient) {

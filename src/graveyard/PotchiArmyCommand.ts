@@ -1,9 +1,9 @@
 import { GuildEmoji } from 'discord.js';
 import { CommandoClient, CommandoMessage } from 'discord.js-commando';
-import { AsyncCommandRunType, PotchiArgType } from '../../typings';
-import BaseCommand from '../../common/BaseCommand';
-import CommandGroup from '../../enums/CommandGroup';
-import { repeatMessage } from '../../util/MessageUtil';
+import BaseCommand from '../common/BaseCommand';
+import CommandGroup from '../enums/CommandGroup';
+import { AsyncCommandRunType, PotchiArgType } from '../typings';
+import { repeatMessage } from '../util/MessageUtil';
 
 export default class PotchiArmyCommand extends BaseCommand {
 	constructor(client: CommandoClient) {
