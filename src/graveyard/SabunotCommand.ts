@@ -5,8 +5,8 @@ import {
 	CommandoClient,
 	CommandoMessage,
 } from 'discord.js-commando';
-import CommandGroup from '../../enums/CommandGroup';
-import { AsyncCommandRunType, SingleUserArgType } from '../../typings';
+import CommandGroup from '../enums/CommandGroup';
+import { AsyncCommandRunType, SingleUserArgType } from '../typings';
 
 const SABUNOT_IMG = `https://cdn.discordapp.com/attachments/765047137473265714/769803669875982366/Screen-Shot-2018-06-06-at-2.png`;
 
